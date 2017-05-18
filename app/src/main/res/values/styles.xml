@@ -773,4 +773,8 @@
         <item name="android:windowEnterAnimation">@anim/cpa_rule_popup_in</item>
         <item name="android:windowExitAnimation">@anim/cpa_rule_popup_out</item>
     </style>
+    <style name="title_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
 </resources>

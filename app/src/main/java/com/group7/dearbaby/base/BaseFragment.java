@@ -32,6 +32,8 @@ public abstract class BaseFragment extends Fragment implements View.OnTouchListe
         view.setOnTouchListener(this);
     }
     protected abstract View initSelfView(LayoutInflater inflater, ViewGroup container);
+    public  abstract void initData();
+    public   abstract void initView(View view);
 
     public abstract void initData();
 
