@@ -103,6 +103,7 @@ mainLayout.addView(shoppingNum);
      */
     @Override
     public void onBackPressed() {
+        if(tabHome.isChecked()){
        if (canExist) {
             finish();
         } else {
@@ -118,6 +119,8 @@ mainLayout.addView(shoppingNum);
             }
             canExist = true;
             Toast.makeText(this,R.string.click_twice_to_exit_app, Toast.LENGTH_SHORT).show();
+        }}else {
+            tabHome.setChecked(true);
         }
     }
 }
