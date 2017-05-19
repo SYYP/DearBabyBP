@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="158.0dip"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@id/img_coupon"
+        android:layout_width="fill_parent"
+        android:layout_height="158.0dip"
+        android:background="@color/pub_color_one"
+        android:scaleType="fitXY"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:background="@color/search_color_line"/>
+
+</LinearLayout>

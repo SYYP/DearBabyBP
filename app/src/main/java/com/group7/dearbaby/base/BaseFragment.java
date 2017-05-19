@@ -15,7 +15,7 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initSelfView(inflater,container);
+        return initSelfView(inflater, container);
     }
 
     @Override
@@ -26,6 +26,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected abstract View initSelfView(LayoutInflater inflater, ViewGroup container);
-   public  abstract void initData();
- public   abstract void initView(View view);
+
+    public abstract void initData();
+
+    public abstract void initView(View view);
 }
