@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,7 +92,7 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
         setContentView(R.layout.activity_logon);
         ButterKnife.bind(this);
         initview();
-        Log.i("TAg","1111111111111111111");
+
         inpt.addTextChangedListener(this);
         checkCodeInput.addTextChangedListener(this);
     }
