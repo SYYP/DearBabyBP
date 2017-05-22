@@ -1,0 +1,66 @@
+package com.group7.dearbaby.base;
+
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import java.util.List;
+
+/**
+ * Created by l on 2017-03-15.
+ */
+
+public class BaseFragmentActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+    private List<Fragment> fragments;
+    private FragmentManager manager;
+    private int oldId;
+    private int contentId;
+
+    protected void initView(int contentId, RadioGroup tabs, List<Fragment> fragments) {
+        this.contentId = contentId;
+        manager = getSupportFragmentManager();
+        this.fragments = fragments;
+        addOrShow(0);
+        ((RadioButton) tabs.getChildAt(0)).setChecked(true);
+        tabs.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        hide(oldId);
+        for (int i = 0; i < fragments.size(); i++) {
+            if (group.getChildAt(i).getId() == checkedId) {
+                oldId = i;
+                addOrShow(i);
+
+            }
+        }
+    }
+
+    private void addOrShow(int i) {
+        Fragment fragmentByTag = manager.findFragmentByTag(contentId + "frag" + i);
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (fragmentByTag != null) {
+            transaction.show(fragmentByTag);
+
+        } else {
+            transaction.add(contentId, fragments.get(i), contentId + "frag" + i);
+        }
+        transaction.commit();
+    }
+
+    private void hide(int id) {
+        Fragment fragmentByTag = manager.findFragmentByTag(contentId + "frag" + id);
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (fragmentByTag != null) {
+            transaction.hide(fragmentByTag);
+        }
+        transaction.commit();
+    }
+
+
+}

@@ -17,15 +17,19 @@ import cn.smssdk.SMSSDK;
  */
 
 public class MyApplication extends Application {
+
+
+
     {
         PlatformConfig.setSinaWeibo("3383892678","fbf0b15e0e2c4d88f2688255f8a9d69e","http://sns.whalecloud.com");
         PlatformConfig.setQQZone("1106030997","2wNCn7IxE3PIz7xF");
     }
-    
+
     @Override
     public void onCreate() {
         super.onCreate();
-        super.onCreate();
+
+        Utils.init(this);
         AutoLayoutConifg.getInstance().useDeviceSize();
         UMShareAPI.get(this);
         UMShareConfig config = new UMShareConfig();
