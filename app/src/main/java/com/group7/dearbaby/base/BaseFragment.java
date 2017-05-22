@@ -35,7 +35,4 @@ public abstract class BaseFragment extends Fragment implements View.OnTouchListe
     public  abstract void initData();
     public   abstract void initView(View view);
 
-    public abstract void initData();
-
-    public abstract void initView(View view);
 }

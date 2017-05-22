@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.group7.dearbaby">
     <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
@@ -67,6 +68,7 @@
         android:smallScreens="true" />
 
     <application
+        tools:replace="Android:icon, android:theme"
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -86,17 +88,9 @@
         <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
       <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
         <activity android:name=".registlogin.view.activity.PhoneRegisterActivity"></activity>
+
         <activity
-            android:name=".main.view.activity.WelcomActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".WBShareActivity"
+            android:name=".registlogin.wxapi.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
             <intent-filter>

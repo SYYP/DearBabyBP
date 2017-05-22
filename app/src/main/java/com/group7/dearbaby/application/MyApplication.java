@@ -2,6 +2,7 @@ package com.group7.dearbaby.application;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.Utils;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
