@@ -1559,7 +1559,7 @@
     <string name="logistic_query_list_page_title">会员-我的-物流查询</string>
     <string name="logistics_data_is_null">暂无物流信息</string>
     <string name="logon">登录</string>
-    <string name="logon_account">账 号</string>
+    <string name="logon_account">账号名</string>
     <string name="logon_account_hint">手机号/邮箱/用户名/门店会员卡</string>
     <string name="logon_fail_dialog_confirmbtn_hint">解锁账号</string>
     <string name="logon_fail_dialog_content_hint">您的账号已申请锁定，暂时无法登录，您可以：</string>
