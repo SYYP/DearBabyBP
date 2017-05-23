@@ -1,5 +1,6 @@
 package com.group7.dearbaby.base;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -7,6 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.group7.dearbaby.registlogin.view.activity.LoginActivity;
+import com.group7.dearbaby.utils.SharedPreferenceUtils2;
 
 import java.util.List;
 
@@ -34,12 +38,20 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
         hide(oldId);
         for (int i = 0; i < fragments.size(); i++) {
             if (group.getChildAt(i).getId() == checkedId) {
+             if (i!=4||(boolean)SharedPreferenceUtils2.get(this,"hadLogin",false)){
                 oldId = i;
-                addOrShow(i);
+                addOrShow(i);}
+               else {
+                     addOrShow(oldId);
+                 ( (RadioButton)group.getChildAt(oldId)).setChecked(true);
+                     Intent intent=new Intent(this, LoginActivity.class);
+                     startActivity(intent);
+                 }
 
+             }
             }
         }
-    }
+
 
     private void addOrShow(int i) {
         Fragment fragmentByTag = manager.findFragmentByTag(contentId + "frag" + i);

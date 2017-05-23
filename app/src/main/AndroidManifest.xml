@@ -98,6 +98,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".registlogin.view.activity.LoginActivity" android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
