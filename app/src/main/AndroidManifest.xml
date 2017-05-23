@@ -66,7 +66,6 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true" />
-
     <application
         tools:replace="Android:icon, android:theme"
         android:name=".application.MyApplication"
@@ -75,8 +74,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name=".main.view.activity.WelcomActivity">
+        <activity android:name=".registlogin.view.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -88,7 +88,7 @@
         <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
       <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
         <activity android:name=".registlogin.view.activity.PhoneRegisterActivity"></activity>
-
+        <activity android:name=".registlogin.view.activity.EnterpriseActivity"></activity>
         <activity
             android:name=".registlogin.wxapi.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -109,6 +109,7 @@
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
+        <activity android:name=".registlogin.view.activity.PhoneRegisterActivityTwo"></activity>
         <activity
             android:name="com.umeng.qq.tencent.AssistActivity"
             android:screenOrientation="portrait"

@@ -20,6 +20,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.registlogin.presenter.PresenterImplem;
 import com.group7.dearbaby.registlogin.view.ButtonView;
@@ -140,7 +142,16 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_logon:
-                presenterImplem.onLongin(inpt.getText().toString(), password.getText().toString());
+                if(RegexUtils.isUsername(inpt.getText().toString().trim())){
+                    if(checkCodeInput.getText().toString().trim().length()>6&&checkCodeInput.getText().toString().trim().length()<18){
+                        presenterImplem.onLongin(inpt.getText().toString(), password.getText().toString());
+                    }else{
+                        ToastUtils.showLongToast("密码长度");
+                    }
+                }else{
+                    ToastUtils.showLongToast("用户名长度必须在6-20位或不能以—开头");
+                }
+
                 break;
             case R.id.btn_register:
                 startActivity(new Intent(LoginActivity.this, PhoneRegisterActivity.class));
@@ -152,6 +163,7 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
                 UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
                 break;
             case R.id.login_xinlang:
+
                 UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, umAuthListener);
                 break;
         }
