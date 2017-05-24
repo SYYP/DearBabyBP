@@ -67,6 +67,7 @@
         android:normalScreens="true"
         android:smallScreens="true" />
     <application
+        tools:replace="Android:icon, android:theme"
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -82,12 +83,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".home.view.activity.HomeWebActivity">
+        </activity>
+        <activity android:name=".home.view.activity.SerachActivity">
+        </activity>
         <activity android:name=".main.view.activity.MainActivity" />
         <activity android:name=".main.view.activity.GuideActivity"></activity>
         <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
       <activity android:name=".registlogin.view.activity.ForgetPasswordActivity"></activity>
         <activity android:name=".registlogin.view.activity.PhoneRegisterActivity"></activity>
         <activity android:name=".registlogin.view.activity.EnterpriseActivity"></activity>
+       <activity android:name=".registlogin.view.activity.RegistrationSuccessful"></activity>
         <activity
             android:name=".registlogin.wxapi.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -97,11 +103,30 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.view.activity.HomeWebActivity">
+        <activity android:name=".registlogin.view.activity.LoginActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
         </activity>
-        <activity android:name=".home.view.activity.SerachActivity">
+        <activity android:name=".registlogin.view.activity.PhoneRegisterActivityTwo"></activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
         </activity>
-        <activity android:name=".registlogin.view.activity.RegistrationSuccessful"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"

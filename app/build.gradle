@@ -18,6 +18,9 @@ android {
         }
     }
 }
+repositories {
+    flatDir { dirs 'libs' }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -41,4 +44,7 @@ dependencies {
     compile 'cn.yipianfengye.android:zxing-library:2.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile name: 'SMSSDK-2.1.4', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
+
 }
