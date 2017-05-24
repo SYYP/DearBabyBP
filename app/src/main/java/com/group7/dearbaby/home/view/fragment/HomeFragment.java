@@ -1,5 +1,7 @@
 package com.group7.dearbaby.home.view.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,9 +16,14 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.base.BaseFragment;
+import com.group7.dearbaby.home.model.bean.Urls;
 import com.group7.dearbaby.home.presenter.HomePresenter;
 import com.group7.dearbaby.home.presenter.HomePresenterImp;
+import com.group7.dearbaby.home.view.activity.HomeWebActivity;
+import com.group7.dearbaby.home.view.activity.SerachActivity;
 import com.group7.dearbaby.home.view.adapter.HomeVpAdapter;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +42,7 @@ import butterknife.Unbinder;
 public class HomeFragment extends BaseFragment {
 
 
+    private static final int REQUEST_CODE = 5;
     @BindView(R.id.home_title_btn_barcode)
     ImageView homeTitleBtnBarcode;
     @BindView(R.id.home_search_title_logo)
@@ -56,7 +64,6 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.move_to_top_btn)
     ImageView moveToTopBtn;
     Unbinder unbinder;
-    Unbinder unbinder1;
     private HomePresenter homePresenter;
     private List<String> titles;
     private List<Fragment> fragList;
@@ -73,11 +80,15 @@ public class HomeFragment extends BaseFragment {
     public void initData() {
         titles = homePresenter.setTitle();
         fragList = new ArrayList<>();
-        for (int i = 0; i < titles.size(); i++) {
+        fragList.add(new HomeShowDataFragment(Urls.PATH_ZHINIAOKU, true));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_NAIFEN, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_XIHUNWEIYANG, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_WANJU, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_ZHINIAOKU, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_NAIFEN, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_XIHUNWEIYANG, false));
+        fragList.add(new HomeShowDataFragment(Urls.PATH_WANJU, false));
 
-            fragList.add(new HomeShowDataFragment());
-
-        }
     }
 
     @Override
@@ -96,15 +107,49 @@ public class HomeFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.home_title_btn_barcode, R.id.message_icon})
+    @OnClick({R.id.home_title_btn_barcode, R.id.message_icon, R.id.home_btn_search_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_title_btn_barcode:
-                ToastUtils.showShortToast("扫描二维码");
+
+                Intent intent = new Intent(getContext(), CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.message_icon:
+
                 ToastUtils.showShortToast("消息");
                 break;
+            case R.id.home_btn_search_layout:
+
+                startActivity(new Intent(getContext(), SerachActivity.class));
+                break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Intent intent = new Intent(getContext(), HomeWebActivity.class);
+                    intent.putExtra("web", result);
+                    startActivity(intent);
+                    ToastUtils.showShortToast("结果为" + result);
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    ToastUtils.showShortToast("解析二维码失败");
+                }
+            }
+        }
+
     }
 }

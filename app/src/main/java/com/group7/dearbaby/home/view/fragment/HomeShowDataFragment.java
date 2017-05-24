@@ -1,6 +1,7 @@
 package com.group7.dearbaby.home.view.fragment;
 
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.base.BaseFragment;
+import com.group7.dearbaby.home.model.bean.OtherDataBean;
+import com.group7.dearbaby.home.model.utils.OkHttpManager;
 import com.group7.dearbaby.home.view.adapter.HomeRecAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,10 +35,31 @@ public class HomeShowDataFragment extends BaseFragment {
     @BindView(R.id.swipe_refresh_widget)
     SwipeRefreshLayout swipeRefreshWidget;
     Unbinder unbinder;
-    private List<String> itemList;
     private HomeRecAdapter adapter;
     private int lastVisibleItem;
-    private Handler handler;
+    private String path;
+    private boolean isFirst;
+    private List<OtherDataBean.DataBean> dataBeen;
+
+    public HomeShowDataFragment(String path, boolean isFirst) {
+        this.path = path;
+        this.isFirst = isFirst;
+    }
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            String data = (String) msg.obj;
+            Gson gson = new Gson();
+            dataBeen = gson.fromJson(data, OtherDataBean.class).getData();
+
+            adapter = new HomeRecAdapter(getContext(), dataBeen,isFirst);
+            homeRecViShowData.setAdapter(adapter);
+        }
+    };
 
     @Override
     protected View initSelfView(LayoutInflater inflater, ViewGroup container) {
@@ -49,11 +73,16 @@ public class HomeShowDataFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String data = OkHttpManager.getSyncString(path);
+                Message msg = new Message();
+                msg.obj = data;
+                handler.sendMessage(msg);
+            }
+        }).start();
 
-        itemList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            itemList.add("item" + i);
-        }
 
     }
 
@@ -62,14 +91,9 @@ public class HomeShowDataFragment extends BaseFragment {
 
         initData();
 
-        handler = new Handler();
-
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         homeRecViShowData.setLayoutManager(manager);
         homeRecViShowData.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-        adapter = new HomeRecAdapter(getContext(), itemList);
-        homeRecViShowData.setAdapter(adapter);
         swipeRefreshWidget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -88,8 +112,9 @@ public class HomeShowDataFragment extends BaseFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 1 == adapter.getItemCount()) {
+                        && lastVisibleItem == adapter.getItemCount()) {
                     swipeRefreshWidget.setRefreshing(true);
+
                     // 此处在现实项目中，请换成网络请求数据代码，sendRequest .....
                     handler.sendEmptyMessageDelayed(0, 3000);
                 }

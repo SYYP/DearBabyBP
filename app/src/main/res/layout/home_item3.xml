@@ -9,18 +9,18 @@
         android:layout_height="43dp">
 
         <ImageView
-            android:layout_width="150dp"
+            android:id="@+id/iv_active"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@mipmap/huodong"/>
     </RelativeLayout>
 
-    <include layout="@layout/home_item3_item">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recVi_hd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    </include>
-
-    <include layout="@layout/home_item3_item">
-
-    </include>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
