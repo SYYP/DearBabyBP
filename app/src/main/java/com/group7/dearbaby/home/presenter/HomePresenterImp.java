@@ -1,7 +1,7 @@
 package com.group7.dearbaby.home.presenter;
 
-import com.group7.dearbaby.home.model.utils.Utils;
-import com.group7.dearbaby.home.model.utils.UtilsImp;
+import com.group7.dearbaby.home.model.utils.GetDataUtils;
+import com.group7.dearbaby.home.model.utils.GetDataUtilsImp;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import java.util.List;
 
 public class HomePresenterImp implements HomePresenter {
 
-    private Utils utils;
+    private GetDataUtils utils;
 
     @Override
     public List<String> setTitle() {
-        utils = new UtilsImp();
-        List<String> titles = utils.getTitles();
+        utils = new GetDataUtilsImp();
+        List<String> titles = utils.getTitles("");//放头布局的接口
         return titles;
     }
 }
