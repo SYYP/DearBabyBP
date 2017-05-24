@@ -9,6 +9,7 @@ import com.group7.dearbaby.registlogin.presenter.ButtonInterOnClick;
  */
 
 public interface ButtonModel {
+
     void setingpassword(String username,String password,ButtonInterOnClick buttonInterOnClick);
 
 }

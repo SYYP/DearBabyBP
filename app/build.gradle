@@ -54,6 +54,6 @@ dependencies {
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile name:'SMSSDK-2.1.4',ext:'aar'
     compile name:'SMSSDKGUI-2.1.4',ext:'aar'
-
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
 }

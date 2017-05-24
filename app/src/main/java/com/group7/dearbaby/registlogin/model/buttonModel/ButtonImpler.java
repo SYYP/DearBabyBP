@@ -12,6 +12,7 @@ import com.group7.dearbaby.registlogin.presenter.ButtonInterOnClick;
  */
 
 public class ButtonImpler implements ButtonModel {
+
     private  boolean bo;
     @Override
     public void setingpassword(final String username, final String password, final ButtonInterOnClick buttonInterOnClick) {
