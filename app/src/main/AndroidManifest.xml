@@ -67,7 +67,6 @@
         android:normalScreens="true"
         android:smallScreens="true" />
     <application
-        tools:replace="Android:icon, android:theme"
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
