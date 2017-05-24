@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:padding="2dp"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:padding="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +21,10 @@
         android:id="@+id/tv_goodName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:gravity="center"
+        android:maxEms="6"
+        android:maxLines="2"
         android:text="aaaa"
         android:textColor="@color/black"
         android:textSize="@dimen/android_public_text_size_30px"/>
