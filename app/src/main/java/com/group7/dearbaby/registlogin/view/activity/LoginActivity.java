@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,7 +94,7 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
         setContentView(R.layout.activity_logon);
         ButterKnife.bind(this);
         initview();
-        Log.i("TAg","1111111111111111111");
+
         inpt.addTextChangedListener(this);
         checkCodeInput.addTextChangedListener(this);
     }
@@ -143,7 +142,7 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
         switch (v.getId()) {
             case R.id.btn_logon:
                 if(RegexUtils.isUsername(inpt.getText().toString().trim())){
-                    if(checkCodeInput.getText().toString().trim().length()>6&&checkCodeInput.getText().toString().trim().length()<18){
+                    if(password.getText().toString().trim().length()>6&&password.getText().toString().trim().length()<18){
                         presenterImplem.onLongin(inpt.getText().toString(), password.getText().toString());
                     }else{
                         ToastUtils.showLongToast("密码长度");

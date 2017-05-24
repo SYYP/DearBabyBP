@@ -115,7 +115,7 @@ public class MyButton extends View implements View.OnTouchListener{
     //计算开关的宽高
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(bkgSwitchOn.getWidth(), bkgSwitchOn.getHeight());
+        setMeasuredDimension(bkgSwitchOn.getWidth(),bkgSwitchOn.getHeight());
     }
 
     /**

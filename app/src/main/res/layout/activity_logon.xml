@@ -11,12 +11,71 @@
         layout="@layout/activity_login_title"
         >
     </include>
+
+    <RelativeLayout
+        android:id="@+id/ralayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scroll_view"
+        android:layout_marginTop="160dp"
+        >
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="1dp"
+            android:background="#a6a3a3"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
+            />
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="1dp"
+            android:background="#a6a3a3"
+            android:layout_marginTop="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#a6a3a3"
+            android:text="其他方式登录"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            />
+        <RadioButton
+            android:id="@+id/login_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_unionlogon_qq"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="70dp"
+            android:text="微信登录"
+            android:textSize="20sp"
+            android:button="@null"
+            android:textColor="#858484"
+            />
+        <RadioButton
+            android:id="@+id/login_xinlang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_weibo_login_normal"
+            android:layout_marginTop="80dp"
+           android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp"
+            android:button="@null"
+            android:text="新浪登录"
+            android:textSize="20sp"
+            android:textColor="#858484"
+            />
+    </RelativeLayout>
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inclde_title"
-        >
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -202,61 +261,4 @@
                 android:background="@drawable/bg_btn_register" />
         </LinearLayout>
     </ScrollView>
-    <RelativeLayout
-        android:id="@+id/ralayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll_view"
-        android:layout_marginTop="160dp"
-        >
-        <TextView
-            android:layout_width="110dp"
-            android:layout_height="1dp"
-            android:background="#a6a3a3"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="30dp"
-            />
-        <TextView
-            android:layout_width="110dp"
-            android:layout_height="1dp"
-            android:background="#a6a3a3"
-            android:layout_marginTop="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="#a6a3a3"
-            android:text="其他方式登录"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            />
-        <RadioButton
-            android:id="@+id/login_weixin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/icon_unionlogon_qq"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="70dp"
-            android:text="微信登录"
-            android:textSize="20sp"
-            android:button="@null"
-            android:textColor="#858484"
-            />
-        <RadioButton
-            android:id="@+id/login_xinlang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_weibo_login_normal"
-            android:layout_marginTop="80dp"
-           android:layout_alignParentRight="true"
-            android:layout_marginRight="70dp"
-            android:button="@null"
-            android:text="新浪登录"
-            android:textSize="20sp"
-            android:textColor="#858484"
-            />
-    </RelativeLayout>
 </RelativeLayout>
