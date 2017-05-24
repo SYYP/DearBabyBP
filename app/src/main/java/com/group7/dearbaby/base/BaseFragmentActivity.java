@@ -38,7 +38,7 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
         hide(oldId);
         for (int i = 0; i < fragments.size(); i++) {
             if (group.getChildAt(i).getId() == checkedId) {
-             if (i!=4||(boolean)SharedPreferenceUtils2.get(this,"hadLogin",false)){
+             if (i!=4||(boolean)SharedPreferenceUtils2.get(this,"hadLogin",true)){
                 oldId = i;
                 addOrShow(i);}
                else {
