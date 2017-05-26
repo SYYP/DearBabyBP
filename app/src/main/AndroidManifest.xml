@@ -94,6 +94,7 @@
         <activity android:name=".registlogin.view.activity.PhoneRegisterActivity"></activity>
         <activity android:name=".registlogin.view.activity.EnterpriseActivity"></activity>
        <activity android:name=".registlogin.view.activity.RegistrationSuccessful"></activity>
+        <activity android:name=".shoppingcart.view.activity.SubmitOrderActivity"></activity>
         <activity
             android:name=".registlogin.wxapi.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -134,6 +135,18 @@
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <service android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false"></service>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+
     </application>
     <meta-data
         android:name="UMENG_APPKEY"

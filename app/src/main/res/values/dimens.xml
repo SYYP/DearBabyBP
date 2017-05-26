@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    txt_12
+    <dimen name="txt_12">12sp</dimen>
+    <dimen name="txt_18">18sp</dimen>
+
+    <dimen name="txt_20">20sp</dimen>
+
+    <dimen name="txt_22">22sp</dimen>
+
+    <dimen name="txt_24">24sp</dimen>
+
+    <dimen name="txt_26">26sp</dimen>
+
+    <dimen name="txt_28">28sp</dimen>
     <dimen name="paysdk_channel_item">400.0dip</dimen>
     <dimen name="tab_height">50.0dip</dimen>
     <dimen name="pickview_container_height">210.0dip</dimen>
