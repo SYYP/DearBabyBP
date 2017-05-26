@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface ShopCartPresenter {
 
+
     //查询
     List<GoodsForCart> queryAll();
 

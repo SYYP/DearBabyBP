@@ -46,6 +46,7 @@ public class GoodsDaoImp implements GoodsDao {
             carts.add(new GoodsForCart(gid, isChecked, picUrl, title, price, count));
         }
 
+
         return carts;
     }
 

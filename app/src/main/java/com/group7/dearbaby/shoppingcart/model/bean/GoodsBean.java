@@ -95,6 +95,7 @@ public class GoodsBean {
              * handwork : 01A_4-2_0_A
              */
 
+
             private String sugGoodsId;
             private String sugGoodsCode;
             private String sugGoodsName;

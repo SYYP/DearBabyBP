@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface ViewDao {
 
+
     //查询
     List<GoodsForCart> queryAllGoods();
 

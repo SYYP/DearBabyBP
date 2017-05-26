@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface GoodsDao {
 
+
     //查询
     List<GoodsForCart> queryAll();
 

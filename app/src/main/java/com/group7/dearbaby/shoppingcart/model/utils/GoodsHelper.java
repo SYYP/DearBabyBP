@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class GoodsHelper extends SQLiteOpenHelper {
 
 
+
     public GoodsHelper(Context context) {
         super(context, "goods.db", null, 1);
     }

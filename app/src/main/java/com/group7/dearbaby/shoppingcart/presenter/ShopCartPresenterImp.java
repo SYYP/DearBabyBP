@@ -18,11 +18,10 @@ import java.util.List;
  */
 public class ShopCartPresenterImp implements ShopCartPresenter {
 
+
     private GoodsDao dao;
-    private Context context;
 
     public ShopCartPresenterImp(Context context) {
-        this.context = context;
         dao = new GoodsDaoImp(context);
     }
 

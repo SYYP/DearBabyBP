@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 
+
 public class GetGoods extends Thread {
 
     private Handler handler;

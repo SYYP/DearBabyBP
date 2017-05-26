@@ -14,6 +14,7 @@ public class GoodsForCart {
     private int price;
     private int count;
 
+
     public GoodsForCart(int gid, int isChecked, String picUrl, String title, int price, int count) {
         this.isChecked = isChecked;
         this.picUrl = picUrl;
