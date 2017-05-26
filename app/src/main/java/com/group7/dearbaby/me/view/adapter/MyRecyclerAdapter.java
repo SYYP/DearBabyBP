@@ -16,6 +16,7 @@ import com.group7.dearbaby.R;
 import com.group7.dearbaby.me.model.bean.GuessLike;
 import com.group7.dearbaby.me.model.bean.User;
 import com.group7.dearbaby.me.model.url.Url;
+import com.group7.dearbaby.me.view.Recycleradactivity;
 import com.group7.dearbaby.me.view.activitys.FavorActivity;
 
 import java.util.List;
@@ -102,7 +103,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
               ho.litem_address.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
-
+                      Intent intent=new Intent(context, Recycleradactivity.class);
+                      context.startActivity(intent);
                   }
               });
           }

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/pub_color_twelev">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/divider_cart2_ea_receiver_name"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="44.5dip"
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/pub_margin_or_padding_space_fourteen">
+
+                    <TextView
+                        android:id="@id/tv_cart2_ea_receiver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/act_address_manager_name"
+                        android:textColor="@color/pub_color_fifteen"
+                        android:textSize="@dimen/android_public_text_size_30px" />
+
+                    <EditText
+                        android:id="@id/et_cart2_ea_receiver_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/android_public_space_14dp"
+                        android:layout_toLeftOf="@id/di_cart2_ea_receiver_name"
+                        android:layout_toRightOf="@id/tv_cart2_ea_receiver_name"
+                        android:background="@null"
+                        android:hint="@string/act_cart2_ship_receiver_hint"
+                        android:singleLine="true"
+                        android:textColor="@color/pub_color_fifteen"
+                        android:textColorHint="@color/pub_color_ten"
+                        android:textSize="@dimen/android_public_text_size_30px" />
+
+                    <ImageView
+                        android:id="@id/di_cart2_ea_receiver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="14.0dip"
+                        android:paddingRight="14.0dip"
+                        android:src="@drawable/btn_del_img_bg" />
+                </RelativeLayout>
+
+                <View style="@style/split_line_normal" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="44.5dip"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/pub_margin_or_padding_space_fourteen">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/act_address_manager_phone"
+                        android:textColor="@color/pub_color_fifteen"
+                        android:textSize="@dimen/android_public_text_size_30px" />
+
+                    <EditText
+                        android:id="@id/et_cart2_ea_receiver_phone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/android_public_space_14px"
+                        android:background="@null"
+                        android:hint="@string/act_address_manager_phone_hint"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:textColor="@color/pub_color_fifteen"
+                        android:textColorHint="@color/pub_color_ten"
+                        android:textSize="@dimen/android_public_text_size_30px" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@id/divider_cart2_ea_receiver_name"
+                android:layout_width="0.5dip"
+                android:layout_height="89.0dip"
+                android:layout_toLeftOf="@id/iv_cart2_ea_select_receiver_name"
+                android:background="@color/pub_color_six" />
+
+            <ImageView
+                android:id="@id/iv_cart2_ea_select_receiver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/ios_public_space_32px"
+                android:src="@drawable/icon_cart2_select_contact" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@id/rl_cart2_select_area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View style="@style/split_line_normal" />
+
+            <ImageView
+                android:id="@id/iv_cart2_select_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/pub_margin_or_padding_space_fourteen"
+                android:layout_marginRight="@dimen/pub_margin_or_padding_space_fourteen"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/arrow_next" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_cart2_select_area"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/pub_margin_or_padding_space_ten"
+                android:paddingLeft="@dimen/pub_margin_or_padding_space_fourteen"
+                android:paddingTop="@dimen/pub_margin_or_padding_space_ten">
+
+                <TextView
+                    android:id="@+id/tv_adcurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/act_address_manager_address"
+                    android:textColor="@color/public_text_color"
+                    android:textSize="@dimen/android_public_text_size_30px" />
+
+                <TextView
+                    android:id="@id/tv_cart2_ea_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_public_space_14px"
+                    android:hint="@string/shoppingcart_choose_ship_area_prompt"
+                    android:textColor="@color/public_text_color"
+                    android:textColorHint="@color/pub_color_ten"
+                    android:textSize="@dimen/android_public_text_size_30px" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@id/rl_cart2_ea_pick_address"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View style="@style/split_line_normal" />
+
+            <ImageView
+                android:id="@id/iv_cart2_ea_pick_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/pub_margin_or_padding_space_fourteen"
+                android:layout_marginRight="@dimen/pub_margin_or_padding_space_fourteen"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/arrow_next" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_cart2_ea_pick_address"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/pub_margin_or_padding_space_ten"
+                android:paddingLeft="@dimen/pub_margin_or_padding_space_fourteen"
+                android:paddingTop="@dimen/pub_margin_or_padding_space_ten">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cart2_self_pickup_address"
+                    android:textColor="@color/public_text_color"
+                    android:textSize="@dimen/android_public_text_size_30px" />
+
+                <TextView
+                    android:id="@id/tv_cart2_ea_pick_address_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/android_public_space_14px"
+                    android:hint="@string/shoppingcart_self_pickup_choose_prompt"
+                    android:textColor="@color/public_text_color"
+                    android:textColorHint="@color/pub_color_ten"
+                    android:textSize="@dimen/android_public_text_size_30px" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View style="@style/split_line_normal" />
+
+        <LinearLayout
+            android:id="@id/ll_cart2_ea_address_content"
+            android:layout_width="fill_parent"
+            android:layout_height="44.5dip"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/pub_margin_or_padding_space_fourteen">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/act_address_manager_address_detail"
+                android:textColor="@color/pub_color_fifteen"
+                android:textSize="@dimen/android_public_text_size_30px" />
+
+            <EditText
+                android:id="@id/et_cart2_ea_address_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/android_public_space_14px"
+                android:background="@null"
+                android:hint="@string/act_cart2_ship_address_hint"
+                android:maxHeight="50.0dip"
+                android:text=""
+                android:textColor="@color/pub_color_fifteen"
+                android:textColorHint="@color/pub_color_ten"
+                android:textSize="@dimen/android_public_text_size_30px" />
+        </LinearLayout>
+
+        <View style="@style/split_line_normal" />
+
+        <LinearLayout
+            android:id="@id/ll_set_default"
+            android:layout_width="fill_parent"
+            android:layout_height="44.5dip"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/pub_margin_or_padding_space_thirteen">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/act_cart2_set_default_address"
+                android:textColor="@color/pub_color_fifteen"
+                android:textSize="@dimen/android_public_text_size_30px" />
+
+            <CheckBox
+                android:id="@id/cb_cart2_ea_set_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:button="@null"
+                android:checked="false"
+                android:drawableRight="@drawable/check_box_bg"
+                android:focusable="false"
+                android:padding="@dimen/android_public_space_12dp"
+                android:textColor="@color/pub_color_fifteen"
+                android:textSize="@dimen/android_public_text_size_30px" />
+        </LinearLayout>
+
+        <Button
+            android:id="@id/btn_cart2_ea_save_and_use"
+            style="@style/btn_cart2_confirm_style"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginTop="30.0dip"
+            android:text="@string/shoppingcart_new_address_save" />
+    </LinearLayout>
+</ScrollView>
