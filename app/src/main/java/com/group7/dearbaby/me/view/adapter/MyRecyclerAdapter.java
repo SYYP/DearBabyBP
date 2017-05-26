@@ -1,20 +1,29 @@
 package com.group7.dearbaby.me.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.group7.dearbaby.R;
+import com.group7.dearbaby.me.model.bean.GuessLike;
 import com.group7.dearbaby.me.model.bean.User;
 import com.group7.dearbaby.me.model.url.Url;
+import com.group7.dearbaby.me.view.activitys.FavorActivity;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.bumptech.glide.Glide.with;
 
 /**
  * date : ${Date}
@@ -23,9 +32,9 @@ import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private List<User.DataBean>list;
+    private List list;
 
-    public MyRecyclerAdapter(Context context, List<User.DataBean> list) {
+    public MyRecyclerAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
     }
@@ -71,7 +80,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
            return  viewHolder4;
        }
         else if(viewType==Kind5){
-           View view5= LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclelogin_gride,parent,false);
+           View view5= LayoutInflater.from(parent.getContext()).inflate(R.layout.act_myebuy_guessfavo_item,parent,false);
            ViewHolder5 viewHolder5=new ViewHolder5(view5);
            return viewHolder5;
        }
@@ -99,53 +108,61 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
           }
         else if(holder instanceof ViewHolder3){
               ViewHolder3 ho3= (ViewHolder3) holder;
-              List<User.DataBean.TagBean> tag = list.get(0).getTag();
+              User user=null;
+              if (list.get(position) instanceof User){
+              user= (User) list.get(position);}
 
-             ho3.litem_text1.setText(tag.get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(0).getTag().get(0).getPicUrl())
+             ho3.litem_text1.setText(user.getData().get(0).getTag().get(0).getElementName());
+              with(context)
+                      .load(Url.PIC_TITLE+user.getData().get(0).getTag().get(0).getPicUrl())
                       .into(ho3.litem_imag1);
-              ho3.litem_text2.setText(list.get(1).getTag().get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(1).getTag().get(0).getPicUrl())
+              ho3.litem_text2.setText(user.getData().get(1).getTag().get(0).getElementName());
+              ho3.litem_imag1.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+context.startActivity(new Intent(context, FavorActivity.class));
+                  }
+              });
+                   with(context)
+                      .load(Url.PIC_TITLE+user.getData().get(1).getTag().get(0).getPicUrl())
                       .into(ho3.litem_imag2);
-              ho3.litem_text3.setText(list.get(2).getTag().get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(2).getTag().get(0).getPicUrl())
+              ho3.litem_text3.setText(user.getData().get(2).getTag().get(0).getElementName());
+
+              with(context)
+                      .load(Url.PIC_TITLE+user.getData().get(2).getTag().get(0).getPicUrl())
                       .into(ho3.litem_imag3);
-              ho3.litem_text4.setText(list.get(3).getTag().get(0).getElementName());
+              ho3.litem_text4.setText(user.getData().get(3).getTag().get(0).getElementName());
               Glide
                       .with(context)
-                      .load(Url.PIC_TITLE+list.get(3).getTag().get(0).getPicUrl())
+                      .load(Url.PIC_TITLE+user.getData().get(3).getTag().get(0).getPicUrl())
                       .into(ho3.litem_imag4);
-              ho3.litem_text1.setText(list.get(4).getTag().get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(4).getTag().get(0).getPicUrl())
-                      .into(ho3.litem_imag1);
-              ho3.litem_text5.setText(Url.PIC_TITLE+list.get(5).getTag().get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(5).getTag().get(0).getPicUrl())
+
+              ho3.litem_text5.setText(user.getData().get(4).getTag().get(0).getElementName());
+              with(context)
+                      .load(Url.PIC_TITLE+user.getData().get(4).getTag().get(0).getPicUrl())
                       .into(ho3.litem_imag5);
-              ho3.litem_text6.setText(list.get(6).getTag().get(0).getElementName());
-              Glide
-                      .with(context)
-                      .load(Url.PIC_TITLE+list.get(6).getTag().get(0).getPicUrl())
-                      .into(ho3.litem_imag6);
+              ho3.litem_text6.setText(user.getData().get(5).getTag().get(0).getElementName());
+              with(context)
+
+                      .load(Url.PIC_TITLE+user.getData().get(5).getTag().get(0).getPicUrl())
+                      .thumbnail(0.1f).into(ho3.litem_imag6);
+
 
           }
-
+          else if(holder instanceof ViewHolder5){
+            GuessLike.SugGoodsBean.SkusBean skus= (GuessLike.SugGoodsBean.SkusBean) list.get(position);
+              ViewHolder5 holder5= (ViewHolder5) holder;
+with(context).load(Url.GESLIKE_IMG_HEADER+skus.getSugGoodsCode()+Url.GUESSLIKE_IMG_TAIL).into(holder5.imgGuessfavo1);
+holder5.txtGuessfavoName1.setText(skus.getSugGoodsName());
+              holder5.txtGuessfavoPrice1.setText("￥"+skus.getPrice());
+          }
 
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list!=null?list.size():0;
     }
 
       public static  class ViewHolder extends RecyclerView.ViewHolder {
@@ -184,7 +201,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             litem_imag1= (ImageView) itemView.findViewById(R.id.litem_img1);
             litem_imag2= (ImageView) itemView.findViewById(R.id.litem_img2);
             litem_imag3= (ImageView) itemView.findViewById(R.id.litem_img3);
-            litem_imag4= (ImageView) itemView.findViewById(R.id.litem_img5);
+            litem_imag4= (ImageView) itemView.findViewById(R.id.litem_img4);
             litem_imag5= (ImageView) itemView.findViewById(R.id.litem_img5);
             litem_imag6= (ImageView) itemView.findViewById(R.id.litem_img6);
             litem_text1= (TextView) itemView.findViewById(R.id.litem_text1);
@@ -205,36 +222,37 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     //第wu个布局
     public static  class ViewHolder5 extends RecyclerView.ViewHolder {
-        private GridView litem_grade;
+        @BindView(R.id.img_guessfavo_1)
+        ImageView imgGuessfavo1;
+        @BindView(R.id.txt_guessfavo_reduction)
+        TextView txtGuessfavoReduction;
+        @BindView(R.id.txt_guessfavo_mark_1)
+        TextView txtGuessfavoMark1;
+        @BindView(R.id.txt_guessfavo_name_1)
+        TextView txtGuessfavoName1;
+        @BindView(R.id.txt_guessfavo_price_1)
+        TextView txtGuessfavoPrice1;
+        @BindView(R.id.iv_add_cart)
+        ImageView ivAddCart;
+        @BindView(R.id.layout_guessfavo_1)
+        LinearLayout layoutGuessfavo1;
         public ViewHolder5(View itemView) {
             super(itemView);
-            litem_grade= (GridView) itemView.findViewById(R.id.recycler_grades);
+            ButterKnife.bind(this,itemView);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        int i=position%6;
-        if(i==0){
-            return Kind;
+
+        if(list.get(position) instanceof  String){
+            return position;
         }
-        else if(i==1){
-            return Kind1;
-        }
-        else if(i==2){
-            return Kind2;
-        }
-        else if(i==3){
+        else if(list.get(position) instanceof  User){
             return Kind3;
         }
-        else if(i==4){
-            return Kind4;
-        }
-        else if(i==5){
-            return Kind5;
-        }
+       else return Kind5;
 
-        return 0;
     }
 
 }

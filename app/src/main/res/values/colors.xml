@@ -334,4 +334,9 @@
     <color name="viewfinder_mask">#60000000</color>
     <color name="voice_tech_tips">#ffd2d2d2</color>
     <color name="white">#ffffffff</color>
+
+    <color name="back_class">#EEEEEE</color>
+
+    <color name="text_def">#2B2B2B</color>
+
 </resources>

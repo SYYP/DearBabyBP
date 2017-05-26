@@ -1,7 +1,7 @@
 package com.group7.dearbaby.me.presenter;
 
+import com.group7.dearbaby.me.model.bean.GuessLike;
 import com.group7.dearbaby.me.model.bean.User;
-import com.group7.dearbaby.me.view.Shuju;
 
 import java.util.List;
 
@@ -11,5 +11,6 @@ import java.util.List;
  */
 
 public interface Success {
-    void succes(List<User.DataBean> list);
+    void succes(User data);
+    void getGuessLike(List<GuessLike.SugGoodsBean.SkusBean> skusList);
 }

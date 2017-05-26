@@ -141,6 +141,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <service android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false"></service>
+
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -153,10 +154,14 @@
             android:screenOrientation="behind" >
         </activity>
 
-    </application>
     <meta-data
         android:name="UMENG_APPKEY"
         android:value="58f4b5432ae85b1f99000613" >
     </meta-data>
+        <activity android:name=".me.view.activitys.FavorActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".category.view.activity.CollapsingToolbarActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".category.view.activity.CoordinatorLayoutActivity" android:screenOrientation="portrait"></activity>
+    </application>
+
 
 </manifest>

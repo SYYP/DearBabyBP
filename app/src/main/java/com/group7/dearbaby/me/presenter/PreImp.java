@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.group7.dearbaby.me.model.SuccessImp;
 import com.group7.dearbaby.me.model.SuccessJson;
+import com.group7.dearbaby.me.model.bean.GuessLike;
 import com.group7.dearbaby.me.model.bean.User;
 import com.group7.dearbaby.me.view.Shuju;
 import com.group7.dearbaby.me.view.fragment.MineFragment;
@@ -26,12 +27,13 @@ private SuccessJson successJson;
     }
 
     @Override
-    public void succes(final List<User.DataBean> list) {
-        if(list!=null){
+    public void succes(final User data) {
+        if(data!=null){
             new Handler(((MineFragment)shuju).getActivity().getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    shuju.result(list);
+                    shuju.result(data);
+successJson.getGuess();
                 }
             }) ;
 
@@ -41,4 +43,15 @@ private SuccessJson successJson;
     }
 
 
+    @Override
+    public void getGuessLike(final List<GuessLike.SugGoodsBean.SkusBean> skusList) {
+        new Handler(((MineFragment)shuju).getActivity().getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                shuju.getGuessLike(skusList);
+
+            }
+        }) ;
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.group7.dearbaby.me.view;
 
+import com.group7.dearbaby.me.model.bean.GuessLike;
 import com.group7.dearbaby.me.model.bean.User;
 
 import java.util.List;
@@ -10,5 +11,6 @@ import java.util.List;
  */
 
 public interface Shuju {
-    void result(List<User.DataBean> lists);
+    void result(User data);
+    void getGuessLike(List<GuessLike.SugGoodsBean.SkusBean> list);
 }

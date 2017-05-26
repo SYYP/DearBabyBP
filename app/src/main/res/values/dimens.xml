@@ -415,4 +415,9 @@
     <dimen name="text_size_34px">19.0sp</dimen>
     <dimen name="title_hight">50.0dip</dimen>
     <dimen name="ucwv_youth_loading_header_height">150.0dip</dimen>
+    <dimen name="bottom_height">60dp</dimen>
+    <dimen name="bottom_fab">140dp</dimen>
+    <dimen name="weibo_header_height">200dp</dimen>
+    <dimen name="weibo_header_offset">-200dp</dimen>
+
 </resources>

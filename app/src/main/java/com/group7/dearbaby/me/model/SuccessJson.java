@@ -2,8 +2,6 @@ package com.group7.dearbaby.me.model;
 
 import com.group7.dearbaby.me.presenter.Success;
 
-import java.util.List;
-
 
 /**
  * date : ${Date}
@@ -12,4 +10,5 @@ import java.util.List;
 
 public interface SuccessJson {
     void  getJSon(Success success);
+    void getGuess();
 }
