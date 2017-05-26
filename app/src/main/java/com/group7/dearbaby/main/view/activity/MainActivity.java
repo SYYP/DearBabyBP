@@ -55,8 +55,9 @@ public class MainActivity extends BaseFragmentActivity {
     @BindView(R.id.main_layout)
     RelativeLayout mainLayout;
     private List<Fragment> contentlist;
-private Handler handler=new Handler();
+    private Handler handler = new Handler();
     private boolean canExist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,18 +72,18 @@ private Handler handler=new Handler();
     private void addShoppingNum() {
         TextView shoppingNum = new TextView(this);
         RelativeLayout.LayoutParams shoppingParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        shoppingParams.addRule(RelativeLayout.ALIGN_RIGHT,R.id.tab);
-        shoppingParams.addRule(RelativeLayout.ALIGN_TOP,R.id.tab);
+        shoppingParams.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tab);
+        shoppingParams.addRule(RelativeLayout.ALIGN_TOP, R.id.tab);
 
-        shoppingParams.rightMargin = (int) (((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getWidth()*1.5 /5-20);
-     shoppingParams.topMargin =5;
+        shoppingParams.rightMargin = (int) (((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getWidth() * 1.5 / 5 - 20);
+        shoppingParams.topMargin = 5;
         shoppingNum.setTextSize(10);
         shoppingNum.setLayoutParams(shoppingParams);
         shoppingNum.setBackgroundResource(R.drawable.shoppingcart_tab_num_bg);
         shoppingNum.setText("1");
         shoppingNum.setTextColor(Color.WHITE);
         shoppingNum.setGravity(Gravity.CENTER);
-mainLayout.addView(shoppingNum);
+        mainLayout.addView(shoppingNum);
 
     }
 
@@ -94,8 +95,9 @@ mainLayout.addView(shoppingNum);
         contentlist.add(new CartFragment());
         contentlist.add(new MineFragment());
     }
-    public static void startMainActiviy(Context context){
-        context.startActivity(new Intent(context,MainActivity.class));
+
+    public static void startMainActiviy(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
     }
 
     /**
@@ -103,23 +105,24 @@ mainLayout.addView(shoppingNum);
      */
     @Override
     public void onBackPressed() {
-        if(tabHome.isChecked()){
-       if (canExist) {
-            finish();
-        } else {
+        if (tabHome.isChecked()) {
+            if (canExist) {
+                finish();
+            } else {
 
-            if (!canExist) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        canExist = false;
-                    }
-                }, 2000);
+                if (!canExist) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            canExist = false;
+                        }
+                    }, 2000);
 
+                }
+                canExist = true;
+                Toast.makeText(this, R.string.click_twice_to_exit_app, Toast.LENGTH_SHORT).show();
             }
-            canExist = true;
-            Toast.makeText(this,R.string.click_twice_to_exit_app, Toast.LENGTH_SHORT).show();
-        }}else {
+        } else {
             tabHome.setChecked(true);
         }
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="sousuo">搜索</string>
     <string name="accessories_package">配件套餐</string>
     <string name="account_recievee_title_statistic">会员-我的-地址账户管理</string>
     <string name="account_safe">账户安全</string>

@@ -9,6 +9,12 @@ import android.widget.Toast;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.main.view.fragment.GuideSelectFragment;
 
+/**
+ * 
+ * @author holmes k
+ * @date 2017.05.24
+ * @time 下午 4:52
+ */
 public class GuideActivity extends AppCompatActivity {
  private   boolean canExist= false;
     private Handler handler=new Handler();

@@ -19,8 +19,8 @@ import com.group7.dearbaby.base.BaseFragment;
 import com.group7.dearbaby.home.model.bean.Urls;
 import com.group7.dearbaby.home.presenter.HomePresenter;
 import com.group7.dearbaby.home.presenter.HomePresenterImp;
+import com.group7.dearbaby.home.view.activity.Class_Edits;
 import com.group7.dearbaby.home.view.activity.HomeWebActivity;
-import com.group7.dearbaby.home.view.activity.SerachActivity;
 import com.group7.dearbaby.home.view.adapter.HomeVpAdapter;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.home_btn_search_layout:
 
-                startActivity(new Intent(getContext(), SerachActivity.class));
+                startActivity(new Intent(getContext(), Class_Edits.class));
                 break;
         }
     }
@@ -141,10 +141,11 @@ public class HomeFragment extends BaseFragment {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    ToastUtils.showShortToast("结果为" + result);
                     Intent intent = new Intent(getContext(), HomeWebActivity.class);
                     intent.putExtra("web", result);
                     startActivity(intent);
-                    ToastUtils.showShortToast("结果为" + result);
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     ToastUtils.showShortToast("解析二维码失败");
                 }
