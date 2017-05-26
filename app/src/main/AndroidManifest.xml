@@ -186,6 +186,8 @@
         <activity android:name=".me.view.activitys.FavorActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".category.view.activity.CollapsingToolbarActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".category.view.activity.CoordinatorLayoutActivity" android:screenOrientation="portrait"></activity>
+    <activity android:name=".shoppingcart.view.activity.SubmitOrderActivity" android:screenOrientation="portrait"></activity>
+    <activity android:name=".home.view.activity.Class_Edits" android:screenOrientation="portrait"></activity>
     </application>
 
 

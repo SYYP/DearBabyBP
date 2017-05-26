@@ -31,6 +31,8 @@ public class HomeWebActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String webUrl = intent.getStringExtra("web");
         homeBusyWebView.loadUrl(webUrl);
+        homeBusyWebView.getSettings().setJavaScriptEnabled(true);
+        homeBusyWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
     }
 
