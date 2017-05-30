@@ -3,6 +3,7 @@ package com.group7.dearbaby.application;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.igexin.sdk.PushManager;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
@@ -35,5 +36,10 @@ public class MyApplication extends Application {
         SMSSDK.initSDK(this, "1cfb207aa3b62", "c4715a08fbaa52917dc830b2254075da");
         Utils.init(this);
         ZXingLibrary.initDisplayOpinion(this);
+        PushManager.getInstance().initialize(this.getApplicationContext(),com.group7.dearbaby.utils.DemoPushService.class);
+        // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(),com.group7.dearbaby.utils.DemoIntentService.class);
+
+
     }
 }
