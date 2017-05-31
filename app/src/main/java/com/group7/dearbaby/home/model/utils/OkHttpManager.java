@@ -95,7 +95,10 @@ public class OkHttpManager {
             /**
              * 把取得到的结果转为字符串，这里最好用string()
              */
-            result = inner_getSync(url).body().string();
+            Response respons=inner_getSync(url);
+            if (respons==null)
+                return null;
+            result = respons.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }

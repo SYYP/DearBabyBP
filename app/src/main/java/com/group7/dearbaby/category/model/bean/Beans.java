@@ -3,7 +3,7 @@ package com.group7.dearbaby.category.model.bean;
 import java.util.List;
 
 /**
- * Created by 周亚楠
+ * Created by Lining
  * on 2017/5/16 -14:36 .
  * Description:
  */

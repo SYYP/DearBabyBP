@@ -3,7 +3,6 @@ package com.group7.dearbaby.me.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -71,9 +70,10 @@ public class BaiDuactivity extends AppCompatActivity {
         option.setOpenGps(true); // 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(1000);//定位请求时间间隔
-        locationClient.setLocOption(option);
         option.setIsNeedAddress(true);//反编译获得具体位置，只有网络定位才可以
         option.setAddrType("all");
+        locationClient.setLocOption(option);
+
         //开启定位
         locationClient.start();
     }
@@ -99,35 +99,35 @@ public class BaiDuactivity extends AppCompatActivity {
                 builder.target(ll).zoom(18.0f);
                 baiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
                 StringBuffer sb = new StringBuffer(256);
-                sb.append("time : ");
-                sb.append(location.getTime());//获得当前时间
-                sb.append("\nerror code : ");
-                sb.append(location.getLocType());//获得erro code得知定位现状
-                sb.append("\nlatitude : ");
-                sb.append(location.getLatitude());//获得纬度
-                sb.append("\nlontitude : ");
-                sb.append(location.getLongitude());//获得经度
-                sb.append("\nradius : ");
-                         sb.append(location.getRadius());
+//                sb.append("time : ");
+//                sb.append(location.getTime());//获得当前时间
+//                sb.append("\nerror code : ");
+//                sb.append(location.getLocType());//获得erro code得知定位现状
+//                sb.append("\nlatitude : ");
+//                sb.append(location.getLatitude());//获得纬度
+//                sb.append("\nlontitude : ");
+//                sb.append(location.getLongitude());//获得经度
+//                sb.append("\nradius : ");
+//                         sb.append(location.getRadius());
                 if (location.getLocType() == BDLocation.TypeGpsLocation){//通过GPS定位
-                    sb.append("\nspeed : ");
-                    sb.append(location.getSpeed());//获得速度
-                    sb.append("\nsatellite : ");
-                    sb.append(location.getSatelliteNumber());
-                    sb.append("\ndirection : ");
-                   sb.append("\naddr : ");
+//                    sb.append("\nspeed : ");
+//                    sb.append(location.getSpeed());//获得速度
+//                    sb.append("\nsatellite : ");
+//                    sb.append(location.getSatelliteNumber());
+//                    sb.append("\ndirection : ");
+//                   sb.append("\naddr : ");
                     sb.append(location.getAddrStr());//获得当前地址
-                   sb.append(location.getDirection());//获得方位
+  //                 sb.append(location.getDirection());//获得方位
                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){//通过网络连接定位
-                 sb.append("\naddr : ");
-                    Log.e("e",location.getAddrStr()+"");
+                // sb.append("\naddr : ");
+                 //   Log.e("e",location.getAddrStr()+"");
                     sb.append(location.getAddrStr());//获得当前地址
                     //运营商信息
-                      sb.append("\noperationers : ");
+                  //    sb.append("\noperationers : ");
                       sb.append(location.getOperators());//获得经营商？
                 }
                 logMsg(sb.toString());
-                Log.i("BaiduLocationApiDem", sb.toString());
+             //   Log.i("BaiduLocationApiDem", sb.toString());
             }
 
         }
