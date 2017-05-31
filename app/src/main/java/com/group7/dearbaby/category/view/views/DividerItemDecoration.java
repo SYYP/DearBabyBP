@@ -10,7 +10,7 @@ import android.view.View;
 
 /**
  * time: 2017/5/24
- * author:周亚楠
+ * author:hello
  * function:
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration{

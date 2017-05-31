@@ -1,6 +1,8 @@
 package com.group7.dearbaby.application;
 
 import com.blankj.utilcode.util.Utils;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.igexin.sdk.PushManager;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;

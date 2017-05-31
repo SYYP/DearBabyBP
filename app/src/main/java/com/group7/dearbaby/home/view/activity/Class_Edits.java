@@ -1,5 +1,6 @@
 package com.group7.dearbaby.home.view.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,10 @@ import com.group7.dearbaby.home.view.adapter.Class_OtherAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * @author holmes k
  * @date 2017.05.25
@@ -29,29 +34,41 @@ import java.util.List;
  */
 
 public class Class_Edits extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    @BindView(R.id.img_shop_search_back)
+    ImageView imgShopSearchBack;
+    @BindView(R.id.img_shop_voice_icon)
+    ImageView imgShopVoiceIcon;
+    @BindView(R.id.userGridView)
+    Class_MyGridView_pindao userGridView;
+    @BindView(R.id.seperate_line2)
+    View seperateLine2;
+    @BindView(R.id.more_category_text)
+    TextView moreCategoryText;
+    @BindView(R.id.otherGridView)
+    Class_MyGridView_pindao otherGridView;
+    @BindView(R.id.subscribe_main_layout)
+    LinearLayout subscribeMainLayout;
+    @BindView(R.id.tv_shop_search_edit_text)
+    TextView tvShopSearchEditText;
     private Class_MyGridView_pindao mUserGv, mOtherGv;
     private List<String> mUserList = new ArrayList<>();
     private List<String> mOtherList = new ArrayList<>();
     private Class_OtherAdapter mUserAdapter, mOtherAdapter;
-    private TextView class_edit_cancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.class_edit);
+        ButterKnife.bind(this);
         initView();
-        class_edit_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
     }
 
     public void initView() {
         mUserGv = (Class_MyGridView_pindao) findViewById(R.id.userGridView);
         mOtherGv = (Class_MyGridView_pindao) findViewById(R.id.otherGridView);
-        class_edit_cancel = (TextView) findViewById(R.id.class_edit_cancel);
+
         mOtherList.add("育儿图书");
         mOtherList.add("防辐射服");
         mOtherList.add("儿童车");
@@ -238,4 +255,23 @@ public class Class_Edits extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
+    @OnClick({R.id.img_shop_search_back, R.id.img_shop_voice_icon})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.img_shop_search_back:
+                finish();
+                break;
+            case R.id.img_shop_voice_icon:
+                startActivityForResult(new Intent(Class_Edits.this, VoiceRecActivity.class), 100);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && data != null) {
+            tvShopSearchEditText.setText(data.getStringExtra("voiceMsg"));
+        }
+    }
 }
