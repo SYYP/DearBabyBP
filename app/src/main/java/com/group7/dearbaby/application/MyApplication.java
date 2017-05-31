@@ -1,7 +1,5 @@
 package com.group7.dearbaby.application;
 
-import android.app.Application;
-
 import com.blankj.utilcode.util.Utils;
 import com.igexin.sdk.PushManager;
 import com.umeng.socialize.PlatformConfig;
@@ -10,6 +8,8 @@ import com.umeng.socialize.UMShareConfig;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
+import org.litepal.LitePalApplication;
+
 import cn.smssdk.SMSSDK;
 
 /**
@@ -17,7 +17,7 @@ import cn.smssdk.SMSSDK;
  * @date 2017.05.17
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends LitePalApplication {
 
     {
         PlatformConfig.setSinaWeibo("3383892678", "fbf0b15e0e2c4d88f2688255f8a9d69e", "http://sns.whalecloud.com");

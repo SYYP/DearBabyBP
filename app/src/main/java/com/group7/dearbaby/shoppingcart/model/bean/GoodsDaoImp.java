@@ -4,12 +4,11 @@ package com.group7.dearbaby.shoppingcart.model.bean;/**
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.group7.dearbaby.shoppingcart.model.utils.GoodsHelper;
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,58 +18,35 @@ import java.util.List;
 public class GoodsDaoImp implements GoodsDao {
 
     private Context context;
-    private GoodsHelper helper;
-    private final SQLiteDatabase db;
+    private SQLiteDatabase db;
     private final String TABLE_NAME = "goods";
 
 
     public GoodsDaoImp(Context context) {
         this.context = context;
-        helper = new GoodsHelper(context);
-        db = helper.getWritableDatabase();
+        db = Connector.getDatabase();
     }
 
+    //查询方法
     @Override
     public List<GoodsForCart> queryAll() {
 
-        Cursor query = db.query(TABLE_NAME, null, null, null, null, null, null);
-        List<GoodsForCart> carts = new ArrayList<>();
-
-        while (query.moveToNext()) {
-            String picUrl = query.getString(query.getColumnIndex("picUrl"));
-            String title = query.getString(query.getColumnIndex("title"));
-            int price = query.getInt(query.getColumnIndex("price"));
-            int count = query.getInt(query.getColumnIndex("count"));
-            int gid = query.getInt(query.getColumnIndex("gid"));
-            int isChecked = query.getInt(query.getColumnIndex("isChecked"));
-            carts.add(new GoodsForCart(gid, isChecked, picUrl, title, price, count));
-        }
-
+        List<GoodsForCart> carts = DataSupport.findAll(GoodsForCart.class);
 
         return carts;
     }
 
+    //添加方法
     @Override
     public void insert(List<GoodsForCart> goods) {
-
-        for (GoodsForCart good : goods) {
-            ContentValues value = new ContentValues();
-            value.put("picUrl", good.getPicUrl());
-            value.put("title", good.getTitle());
-            value.put("price", good.getPrice());
-            value.put("count", good.getCount());
-            value.put("gid", good.getGid());
-            value.put("isChecked", good.getIsChecked());
-            db.insert(TABLE_NAME, null, value);
-        }
-
-
+        DataSupport.saveAll(goods);
     }
 
+    //删除方法
     @Override
     public boolean delete(int id) {
 
-        int delete = db.delete(TABLE_NAME, "gid=?", new String[]{id + ""});
+        int delete = DataSupport.delete(GoodsForCart.class, id);
         if (delete > 0) {
             return true;
         }
@@ -80,9 +56,9 @@ public class GoodsDaoImp implements GoodsDao {
     @Override
     public boolean upData(GoodsForCart goods) {
 
-        ContentValues value = new ContentValues();
-        value.put("count", goods.getCount());
-        int update = db.update(TABLE_NAME, value, "gid=?", new String[]{goods.getGid() + ""});
+        ContentValues values = new ContentValues();
+        values.put("count", goods.getCount());
+        int update = DataSupport.updateAll(GoodsForCart.class, values);
         if (update > 0) {
             return true;
         }

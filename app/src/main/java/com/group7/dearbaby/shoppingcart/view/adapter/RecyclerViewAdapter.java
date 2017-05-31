@@ -9,6 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.group7.dearbaby.R;
+import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
+import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenter;
+import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,13 +29,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPEONE = 1;
     private static final int TYPETWO = 2;
 
+    private Context context;
+    private List<GoodsBean.SugGoodsBean> sugGoods;
+    private ShopCartPresenter shopCartPresenter;
+    private List<GoodsForCart> carts;
 
-
-    public RecyclerViewAdapter(Context context) {
+    public RecyclerViewAdapter(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
         this.context = context;
+        this.sugGoods = sugGoods;
+        shopCartPresenter = new ShopCartPresenterImp(context);
+        carts = shopCartPresenter.queryAll();
     }
 
-    private Context context;
 
     @Override
     public int getItemViewType(int position) {
@@ -47,7 +58,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (viewType == TYPEONE) {
             View view = LayoutInflater.from(context).inflate(R.layout.shopping_item, parent, false);
-
             Viewholder1 viewholder1 = new Viewholder1(view);
             return viewholder1;
         } else {
@@ -60,6 +70,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        int itemViewType = getItemViewType(position);
+        if (itemViewType == TYPEONE) {
+            Viewholder1 viewholder1 = (Viewholder1) holder;
+            viewholder1.shoppingItemRecyclerview.setLayoutManager(new LinearLayoutManager(context));
+            RecyclerView_item1 item1 = new RecyclerView_item1(context, carts);
+            viewholder1.shoppingItemRecyclerview.setAdapter(item1);
+        } else {
+            Viewholder2 viewHolder2 = (Viewholder2) holder;
+            viewHolder2.item2Recyclerview.setLayoutManager(new GridLayoutManager(context, 2));
+            RecyclerView_item2 item2 = new RecyclerView_item2(context, sugGoods);
+            viewHolder2.item2Recyclerview.setAdapter(item2);
+            viewHolder2.item2Recyclerview.addItemDecoration(new RecyclerViewDividerItemDecoration(context));
+
+        }
+
 
     }
 
@@ -74,10 +100,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public Viewholder1(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
-            shoppingItemRecyclerview = (RecyclerView) itemView.findViewById(R.id.shopping_item_recyclerview);
-            shoppingItemRecyclerview.setLayoutManager(new LinearLayoutManager(context));
-            shoppingItemRecyclerview.setAdapter(new RecyclerView_item1(context));
+            ButterKnife.bind(this, itemView);
+
         }
     }
 
@@ -87,11 +111,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public Viewholder2(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
-            item2Recyclerview = (RecyclerView) itemView.findViewById(R.id.item2_recyclerview);
-            item2Recyclerview.setLayoutManager(new GridLayoutManager(context,2));
-            item2Recyclerview.setAdapter(new RecyclerView_item2(context));
-            item2Recyclerview.addItemDecoration(new RecyclerViewDividerItemDecoration(context));
+            ButterKnife.bind(this, itemView);
+
         }
     }
 }

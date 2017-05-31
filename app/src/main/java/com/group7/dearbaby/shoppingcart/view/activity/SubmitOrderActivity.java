@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
  * 项目创建时间:2017/5/24 19:41
  */
 
-public class SubmitOrderActivity extends Activity implements View.OnClickListener{
+public class SubmitOrderActivity extends Activity implements View.OnClickListener {
     @BindView(R.id.tv_promotion_notice_show)
     TextView tvPromotionNoticeShow;
     @BindView(R.id.iv_promotion_notice_close)
@@ -156,12 +156,18 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
     @BindView(R.id.rl_order_submit)
     RelativeLayout rlOrderSubmit;
 
-    /** 支付宝支付业务：入参app_id */
-    public static final String APPID ="2017052307321911";
+    /**
+     * 支付宝支付业务：入参app_id
+     */
+    public static final String APPID = "2017052307321911";
 
-    /** 支付宝账户登录授权业务：入参pid值 */
+    /**
+     * 支付宝账户登录授权业务：入参pid值
+     */
     public static final String PID = "";
-    /** 支付宝账户登录授权业务：入参target_id值 */
+    /**
+     * 支付宝账户登录授权业务：入参target_id值
+     */
     public static final String TARGET_ID = "";
 
     /** 商户私钥，pkcs8格式 */
@@ -169,7 +175,9 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
     /** 如果商户两个都设置了，优先使用 RSA2_PRIVATE */
     /** RSA2_PRIVATE 可以保证商户交易在更加安全的环境下进行，建议使用 RSA2_PRIVATE */
     /** 获取 RSA2_PRIVATE，建议使用支付宝提供的公私钥生成工具生成， */
-    /** 工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1 */
+    /**
+     * 工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1
+     */
     public static final String RSA2_PRIVATE = MySiyao.SiYao;
     public static final String RSA_PRIVATE = "";
 
@@ -223,7 +231,9 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     @Override
@@ -231,7 +241,7 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart2);
         ButterKnife.bind(this);
-    inidClicklitener();
+        inidClicklitener();
 
     }
 
@@ -241,7 +251,7 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.tv_cart2_submit:
                 if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
                     new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置APPID | RSA_PRIVATE")

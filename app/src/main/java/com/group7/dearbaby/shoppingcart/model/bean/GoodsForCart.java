@@ -2,28 +2,32 @@ package com.group7.dearbaby.shoppingcart.model.bean;/**
  * Created by holmes k on 2017.05.24.
  */
 
+import org.litepal.crud.DataSupport;
+
 /**
  * auth:holmes k
  * date:2017.05.24
  */
-public class GoodsForCart {
+public class GoodsForCart extends DataSupport {
     private int gid;
     private int isChecked;
     private String picUrl;
     private String title;
-    private int price;
+    private double price;
     private int count;
 
-
-    public GoodsForCart(int gid, int isChecked, String picUrl, String title, int price, int count) {
+    public GoodsForCart(int gid, int isChecked, String picUrl, String title, double price, int count) {
+        this.gid = gid;
         this.isChecked = isChecked;
         this.picUrl = picUrl;
         this.title = title;
         this.price = price;
         this.count = count;
-        this.gid = gid;
     }
 
+    public GoodsForCart() {
+
+    }
 
     public int getGid() {
         return gid;
@@ -57,11 +61,11 @@ public class GoodsForCart {
         this.title = title;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

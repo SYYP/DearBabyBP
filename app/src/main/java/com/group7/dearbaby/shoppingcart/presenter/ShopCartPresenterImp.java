@@ -21,8 +21,10 @@ public class ShopCartPresenterImp implements ShopCartPresenter {
 
     private GoodsDao dao;
 
+
     public ShopCartPresenterImp(Context context) {
         dao = new GoodsDaoImp(context);
+
     }
 
     @Override
@@ -49,4 +51,6 @@ public class ShopCartPresenterImp implements ShopCartPresenter {
         boolean upData = dao.upData(goods);
         return upData;
     }
+
+
 }

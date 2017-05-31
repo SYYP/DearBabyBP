@@ -230,6 +230,7 @@
             android:exported="false"
             android:screenOrientation="behind" >
         </activity>
+<<<<<<< Updated upstream
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
         <activity android:name=".me.view.activitys.FavorActivity" android:screenOrientation="portrait"></activity>
@@ -336,6 +337,18 @@
             android:process=":pushservice">
         </service>
         <service android:name="com.group7.dearbaby.utils.DemoIntentService"/>
+=======
+        <activity android:name=".home.view.activity.Class_Edits"></activity>
+
+    <meta-data
+        android:name="UMENG_APPKEY"
+        android:value="58f4b5432ae85b1f99000613" >
+    </meta-data>
+        <activity android:name=".me.view.activitys.FavorActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".category.view.activity.CollapsingToolbarActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".category.view.activity.CoordinatorLayoutActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".shoppingcart.view.activity.SubmitOrderActivity"></activity>
+>>>>>>> Stashed changes
     </application>
 
 
