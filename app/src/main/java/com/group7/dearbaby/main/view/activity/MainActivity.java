@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group7.dearbaby.R;
+import com.group7.dearbaby.application.MyApplication;
 import com.group7.dearbaby.base.BaseFragmentActivity;
 import com.group7.dearbaby.category.view.fragment.CategoryFragment;
 import com.group7.dearbaby.home.view.fragment.HomeFragment;
@@ -63,7 +64,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        ((MyApplication)getApplicationContext()).addListnerToList(this);
         addShoppingNum();
         initData();
         initView(R.id.realContent, tabBottom, contentlist);
@@ -80,7 +81,7 @@ public class MainActivity extends BaseFragmentActivity {
         shoppingNum.setTextSize(10);
         shoppingNum.setLayoutParams(shoppingParams);
         shoppingNum.setBackgroundResource(R.drawable.shoppingcart_tab_num_bg);
-        shoppingNum.setText("1");
+        shoppingNum.setText("3");
         shoppingNum.setTextColor(Color.WHITE);
         shoppingNum.setGravity(Gravity.CENTER);
         mainLayout.addView(shoppingNum);

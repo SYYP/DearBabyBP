@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.group7.dearbaby.R;
+import com.group7.dearbaby.application.MyApplication;
 import com.group7.dearbaby.registlogin.presenter.PresenterImplem;
 import com.group7.dearbaby.registlogin.view.ButtonView;
 import com.group7.dearbaby.registlogin.view.views.MyButton;
+import com.group7.dearbaby.utils.SharedPreferenceUtils2;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -176,7 +178,13 @@ public class LoginActivity extends Activity implements ButtonView, View.OnClickL
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             Toast.makeText(getApplicationContext(), "Authorize succeed", Toast.LENGTH_SHORT).show();
-
+if (action==UMAuthListener.ACTION_GET_PROFILE){
+    SharedPreferenceUtils2.put(getApplicationContext(),"userName",data.get("screen_name"));
+    SharedPreferenceUtils2.put(getApplicationContext(),"userIcon",data.get("profile_image_url").toString());
+    SharedPreferenceUtils2.put(getApplicationContext(),"hadLogin",true);
+    ((MyApplication)getApplicationContext()).hasLogin();
+    finish();
+}
         }
 
         @Override

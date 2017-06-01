@@ -3,6 +3,7 @@ package com.group7.dearbaby.me.view.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import com.group7.dearbaby.me.model.bean.User;
 import com.group7.dearbaby.me.model.url.Url;
 import com.group7.dearbaby.me.view.Recycleradactivity;
 import com.group7.dearbaby.me.view.activitys.FavorActivity;
+import com.group7.dearbaby.me.view.activitys.MyBuyMoreActivity;
+import com.group7.dearbaby.utils.SharedPreferenceUtils2;
+import com.group7.dearbaby.utils.transformations.CropCircleTransformation;
 
 import java.util.List;
 
@@ -97,9 +101,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
               ho.litem_img.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
-
+context.startActivity(new Intent(context, MyBuyMoreActivity.class));
                   }
               });
+              String userName= (String) SharedPreferenceUtils2.get(context,"userName","");
+              if (!TextUtils.isEmpty(userName)){
+                  ho.litem_num.setText(userName);
+                  Glide.with(context).load((String)SharedPreferenceUtils2.get(context,"userIcon","")).bitmapTransform(new CropCircleTransformation(context)).into(ho.litem_img);
+              }
               ho.litem_address.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {

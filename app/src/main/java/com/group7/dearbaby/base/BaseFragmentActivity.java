@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.group7.dearbaby.application.MyApplication;
 import com.group7.dearbaby.registlogin.view.activity.LoginActivity;
 import com.group7.dearbaby.utils.SharedPreferenceUtils2;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by l on 2017-03-15.
  */
 
-public class BaseFragmentActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+public class BaseFragmentActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener ,LoginListener{
     private List<Fragment> fragments;
     private FragmentManager manager;
     private int oldId;
@@ -38,7 +39,7 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
         hide(oldId);
         for (int i = 0; i < fragments.size(); i++) {
             if (group.getChildAt(i).getId() == checkedId) {
-             if (i!=4||(boolean)SharedPreferenceUtils2.get(this,"hadLogin",true)){
+             if (i!=4||(boolean)SharedPreferenceUtils2.get(this,"hadLogin",false)){
                 oldId = i;
                 addOrShow(i);}
                else {
@@ -62,7 +63,7 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
         } else {
             transaction.add(contentId, fragments.get(i), contentId + "frag" + i);
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     private void hide(int id) {
@@ -71,8 +72,32 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
         if (fragmentByTag != null) {
             transaction.hide(fragmentByTag);
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
+    }
+    private void remove(int id) {
+        Fragment fragmentByTag = manager.findFragmentByTag(contentId + "frag" + id);
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (fragmentByTag != null) {
+            transaction.remove(fragmentByTag);
+        }
+        transaction.commitAllowingStateLoss();
     }
 
+    @Override
+    public void authExit() {
+addOrShow(0);
+remove(4);
+        addOrShow(4);
+    }
 
+    @Override
+    public void authLogin() {
+addOrShow(4);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((MyApplication)getApplicationContext()).removeLiser(this);
+    }
 }

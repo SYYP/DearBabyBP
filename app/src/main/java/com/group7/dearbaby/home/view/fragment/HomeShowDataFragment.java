@@ -57,6 +57,7 @@ public class HomeShowDataFragment extends BaseFragment {
             dataBeen = gson.fromJson(data, OtherDataBean.class).getData();
 
             adapter = new HomeRecAdapter(getContext(), dataBeen,isFirst);
+            if (homeRecViShowData!=null)
             homeRecViShowData.setAdapter(adapter);
         }
     };
