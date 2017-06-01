@@ -5,6 +5,13 @@ import android.os.Bundle;
 
 import com.group7.dearbaby.R;
 
+/**
+ * 
+ * @author holmes k
+ * @date 2017.05.31
+ * @time 上午 11:16
+ */
+
 public class SerachActivity extends AppCompatActivity {
 
     @Override

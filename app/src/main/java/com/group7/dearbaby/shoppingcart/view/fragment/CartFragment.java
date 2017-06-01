@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.group7.dearbaby.R.id.shopping_jiesuantext;
+import static com.group7.dearbaby.R.id.shopping_title_edit;
 
 /**
  * 作    者： shangzemin
@@ -82,6 +83,14 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        initData();
+
+    }
+
+    @Override
     public void initData() {
         textView = (TextView) getView().findViewById(R.id.shopping_jiesuantext);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,6 +103,7 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
         }
 
         textView.setOnClickListener(this);
+        shoppingTitleEdit.setOnClickListener(this);
     }
 
     @Override
@@ -112,6 +122,10 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case shopping_jiesuantext:
                 startActivity(new Intent(getActivity(), SubmitOrderActivity.class));
+                break;
+            case shopping_title_edit:
+                shoppingJiesuanbnt.setText("删除");
+
                 break;
         }
 

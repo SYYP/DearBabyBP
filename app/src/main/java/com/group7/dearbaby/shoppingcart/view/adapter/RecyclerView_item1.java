@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 
 import java.util.List;
 
@@ -33,10 +34,12 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
 
     private List<GoodsForCart> carts;
     private int count;
+    private final ShopCartPresenterImp cartPresenterImp;
 
     public RecyclerView_item1(Context contexts, List<GoodsForCart> carts) {
         this.contexts = contexts;
         this.carts = carts;
+        cartPresenterImp = new ShopCartPresenterImp(contexts);
     }
 
     private Context contexts;
@@ -60,6 +63,7 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
             }
 
             Glide.with(contexts).load(carts.get(position).getPicUrl()).into(holder.shoppingIv);
+            Log.d("abc", carts.get(position).getPicUrl());
             holder.shoppingInpo.setText(carts.get(position).getTitle());
             holder.shoppingPrice.setText(carts.get(position).getPrice() + "");
             count = carts.get(position).getCount();
@@ -73,26 +77,28 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
         holder.tvReduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (++count < 0) {
-                    count--;
-                    ToastUtils.showShortToast("商品数需大于一");
-
+                count = carts.get(position).getCount();
+                if (count <= 1) {
+                    holder.tvReduce.setEnabled(false);
                 } else {
+                    holder.tvReduce.setEnabled(true);
+                    count--;
                     holder.tvNum.setText(count + "");
+
+                    carts.get(position).setCount(count);
+                    cartPresenterImp.upData(carts.get(position));
                 }
             }
         });
         holder.tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (--count < 0) {
-                    count++;
-                    ToastUtils.showShortToast("商品数需大于一");
+                count = carts.get(position).getCount();
+                count++;
+                holder.tvNum.setText(count + "");
 
-                } else {
-                    holder.tvNum.setText(count + "");
-                }
+                carts.get(position).setCount(count);
+                cartPresenterImp.upData(carts.get(position));
             }
         });
 
@@ -111,18 +117,16 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
             public void afterTextChanged(Editable s) {
 
                 String numString = s.toString();
-                if (numString == null || numString.equals("")) {
-                    count = 0;
-                } else {
-                    int numInt = Integer.parseInt(numString);
-                    if (numInt < 0) {
-                        ToastUtils.showShortToast("商品数需大于一");
-                    } else {
-                        //设ditText光标位置 为文本末端
-                        holder.tvNum.setSelection(holder.tvNum.getText().toString().length());
-                        count = numInt;
-                    }
-                }
+                int numInt = Integer.parseInt(numString);
+
+                //设ditText光标位置 为文本末端
+                holder.tvNum.setSelection(holder.tvNum.getText().toString().length());
+                count = numInt;
+
+                carts.get(position).setCount(count);
+                cartPresenterImp.upData(carts.get(position));
+
+
             }
         });
 

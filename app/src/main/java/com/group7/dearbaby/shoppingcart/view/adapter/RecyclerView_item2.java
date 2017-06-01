@@ -33,7 +33,6 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
 
     private List<GoodsBean.SugGoodsBean> sugGoods;
     private Context context;
-    private String picPath;
     private final ShopCartPresenterImp presenterImp;
 
     public RecyclerView_item2(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
@@ -54,6 +53,7 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
 
     @Override
     public void onBindViewHolder(MyViewholder holder, final int position) {
+        String picPath = null;
         String code = sugGoods.get(0).getSkus().get(position).getSugGoodsCode();
         if (!TextUtils.isEmpty(code)) {
             picPath = Urls.GOODSCAR_PIC_TITLE + code + Urls.GOODSCAR_PIC_FOOT;
@@ -62,6 +62,16 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
         holder.jiage.setText(sugGoods.get(0).getSkus().get(position).getPrice());
         holder.textView.setText(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
         holder.textView2.setText(sugGoods.get(0).getSkus().get(position).getSalesVolume() + "人已购买");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent=new Intent(context,);
+//                context.startActivity(intent);
+            }
+        });
+
+        final String finalPicPath = picPath;
         holder.addToCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +80,7 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
                 cart.setPrice(Double.parseDouble(sugGoods.get(0).getSkus().get(position).getPrice()));
                 cart.setCount(1);
                 cart.setIsChecked(1);
-                cart.setPicUrl(picPath);
+                cart.setPicUrl(finalPicPath);
                 cart.setTitle(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
                 list.add(cart);
                 presenterImp.insert(list);

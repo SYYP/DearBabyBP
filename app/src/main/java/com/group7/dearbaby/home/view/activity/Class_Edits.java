@@ -81,8 +81,6 @@ public class Class_Edits extends AppCompatActivity implements AdapterView.OnItem
         mOtherList.add("男童夏装");
         mOtherList.add("女童夏装");
         mOtherList.add("儿童玩具");
-//        mUserList.add("情感");
-//        mUserList.add("儿童车");
         mUserAdapter = new Class_OtherAdapter(this, mUserList, true);
         mOtherAdapter = new Class_OtherAdapter(this, mOtherList, false);
         mUserGv.setAdapter(mUserAdapter);
