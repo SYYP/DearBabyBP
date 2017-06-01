@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.group7.dearbaby.R;
+import com.group7.dearbaby.me.model.bean.UserAddressInfo;
 import com.group7.dearbaby.shoppingcart.model.utils.MySiyao;
+import com.group7.dearbaby.utils.GsonUtils;
+import com.group7.dearbaby.utils.SharedPreferenceUtils2;
 
 import java.util.Map;
 
@@ -242,6 +245,15 @@ public class SubmitOrderActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_cart2);
         ButterKnife.bind(this);
         inidClicklitener();
+      String receiveInfo=(String)  SharedPreferenceUtils2.
+                get(this,"receiveInfo", "");
+        if(!TextUtils.isEmpty(receiveInfo)){
+            UserAddressInfo userInfo = GsonUtils.jsonToBean(receiveInfo, UserAddressInfo.class);
+            tvCart2DeliveryUser.setText(userInfo.getReceiveName());
+            tvCart2DeliveryPhone.setText(userInfo.getReceivePhone());
+            tvCart2DeliveryAddress.setText(userInfo.getReceiveAddress());
+        }
+
 
     }
 
