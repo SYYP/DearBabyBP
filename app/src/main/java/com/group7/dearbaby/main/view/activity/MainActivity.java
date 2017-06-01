@@ -108,6 +108,7 @@ public class MainActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         if (tabHome.isChecked()) {
             if (canExist) {
+                removeAll();
                 finish();
             } else {
 

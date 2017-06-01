@@ -94,6 +94,12 @@ remove(4);
     public void authLogin() {
 addOrShow(4);
     }
+    protected void removeAll(){
+        remove(0);
+        remove(1);
+        remove(2);
+        remove(3);
+    }
 
     @Override
     protected void onDestroy() {
