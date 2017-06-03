@@ -24,12 +24,13 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
     private FragmentManager manager;
     private int oldId;
     private int contentId;
-
+private RadioGroup tabs;
     protected void initView(int contentId, RadioGroup tabs, List<Fragment> fragments) {
         this.contentId = contentId;
         manager = getSupportFragmentManager();
         this.fragments = fragments;
         addOrShow(0);
+        this.tabs=tabs;
         ((RadioButton) tabs.getChildAt(0)).setChecked(true);
         tabs.setOnCheckedChangeListener(this);
     }
@@ -85,14 +86,14 @@ public class BaseFragmentActivity extends FragmentActivity implements RadioGroup
 
     @Override
     public void authExit() {
-addOrShow(0);
+        ((RadioButton) tabs.getChildAt(0)).setChecked(true);
 remove(4);
-        addOrShow(4);
+        ((RadioButton) tabs.getChildAt(4)).setChecked(true);
     }
 
     @Override
     public void authLogin() {
-addOrShow(4);
+        ((RadioButton) tabs.getChildAt(4)).setChecked(true);
     }
     protected void removeAll(){
         remove(0);
