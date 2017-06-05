@@ -4,6 +4,7 @@ package com.group7.dearbaby.shoppingcart.presenter;/**
 
 
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
 import java.util.List;
 
@@ -13,15 +14,15 @@ import java.util.List;
  */
 public interface ShopCartPresenter {
 
-
+void attachView(ViewDao view);
     //查询
     List<GoodsForCart> queryAll();
 
-    void insert(List<GoodsForCart> goods);
-
-    boolean delete(int id);
+    void insert(GoodsForCart goods);
+    void upData(List<GoodsForCart> carts);
+    boolean delete(List<GoodsForCart> goods);
 
     boolean upData(GoodsForCart goods);
-
+void detachView(ViewDao view);
 
 }

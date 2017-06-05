@@ -15,8 +15,8 @@ import com.group7.dearbaby.home.model.bean.Urls;
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
+import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,17 +28,17 @@ import butterknife.ButterKnife;
  * 项目创建时间:2017/5/25 13:52
  */
 
-public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.MyViewholder> {
+public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.MyViewholder> implements ViewDao{
 
 
     private List<GoodsBean.SugGoodsBean> sugGoods;
     private Context context;
-    private final ShopCartPresenterImp presenterImp;
+
 
     public RecyclerView_item2(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
         this.context = context;
         this.sugGoods = sugGoods;
-        presenterImp = new ShopCartPresenterImp(context);
+      ShopCartPresenterImp.getShopImp().attachView(this);
     }
 
 
@@ -49,7 +49,7 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
         return viewholder;
     }
 
-    List<GoodsForCart> list = new ArrayList<GoodsForCart>();
+
 
     @Override
     public void onBindViewHolder(MyViewholder holder, final int position) {
@@ -82,9 +82,9 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
                 cart.setIsChecked(1);
                 cart.setPicUrl(finalPicPath);
                 cart.setTitle(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
-                list.add(cart);
-                presenterImp.insert(list);
-                list.clear();
+                ShopCartPresenterImp.getShopImp().insert(cart);
+
+
 
             }
         });
@@ -94,6 +94,18 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
     @Override
     public int getItemCount() {
         return sugGoods != null ? sugGoods.get(0).getSkus().size() : 0;
+    }
+
+    @Override
+    public void queryAllGoods(List<GoodsForCart> carts) {
+
+    }
+
+
+
+    @Override
+    public void upDataUI(List<GoodsForCart> goods) {
+
     }
 
     public class MyViewholder extends RecyclerView.ViewHolder {

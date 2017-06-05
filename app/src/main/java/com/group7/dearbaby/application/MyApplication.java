@@ -2,6 +2,7 @@ package com.group7.dearbaby.application;
 
 import com.blankj.utilcode.util.Utils;
 import com.group7.dearbaby.base.LoginListener;
+import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.igexin.sdk.PushManager;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -43,7 +44,8 @@ private List<LoginListener> loginListeners=new ArrayList<>();
         PushManager.getInstance().initialize(this.getApplicationContext(),com.group7.dearbaby.utils.DemoPushService.class);
         // com.getui.demo.DemoIntentService 为第三方自定义的推送服务事件接收类
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(),com.group7.dearbaby.utils.DemoIntentService.class);
-
+//初始化购物车P层
+        ShopCartPresenterImp.init(this);
 
     }
     public  void addListnerToList(LoginListener listener){

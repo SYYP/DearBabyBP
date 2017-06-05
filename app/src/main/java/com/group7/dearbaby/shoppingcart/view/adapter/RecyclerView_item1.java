@@ -2,8 +2,6 @@ package com.group7.dearbaby.shoppingcart.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
+import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
 import java.util.List;
 
@@ -29,17 +28,17 @@ import butterknife.ButterKnife;
  * 项目创建时间:2017/5/25 13:48
  */
 
-public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.MyViewHolder> {
+public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.MyViewHolder> implements ViewDao {
 
 
     private List<GoodsForCart> carts;
-    private int count;
-    private final ShopCartPresenterImp cartPresenterImp;
+
+
 
     public RecyclerView_item1(Context contexts, List<GoodsForCart> carts) {
         this.contexts = contexts;
         this.carts = carts;
-        cartPresenterImp = new ShopCartPresenterImp(contexts);
+    ShopCartPresenterImp.getShopImp().attachView(this);
     }
 
     private Context contexts;
@@ -54,30 +53,40 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        holder.shoppingdianpuBnt.setChecked(true);
-        holder.shoppingName.setText("商铺名");
 
-        if (carts != null && carts.size() != 0) {
-            if (carts.get(position).getIsChecked() == 1) {
-                holder.shoppingnameBnt.setChecked(true);
-            }
 
+
+
+                holder.shoppingnameBnt.setChecked(carts.get(position).getIsChecked()!=0);
+
+holder.shoppingnameBnt.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if (holder.shoppingnameBnt.isChecked()){
+            carts.get(position).setIsChecked(1);
+
+        }else {
+            carts.get(position).setIsChecked(0);
+        }
+        ShopCartPresenterImp.getShopImp().upData(carts.get(position));
+    }
+});
             Glide.with(contexts).load(carts.get(position).getPicUrl()).into(holder.shoppingIv);
             Log.d("abc", carts.get(position).getPicUrl());
             holder.shoppingInpo.setText(carts.get(position).getTitle());
             holder.shoppingPrice.setText(carts.get(position).getPrice() + "");
-            count = carts.get(position).getCount();
+           int count = carts.get(position).getCount();
             holder.tvNum.setText(count + "");
             if (count == 1) {
                 holder.tvReduce.setTextColor(contexts.getResources().getColor(R.color.grgray));
             } else {
                 holder.tvReduce.setTextColor(contexts.getResources().getColor(R.color.grey_color1));
             }
-        }
+
         holder.tvReduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count = carts.get(position).getCount();
+              int  count = carts.get(position).getCount();
                 if (count <= 1) {
                     holder.tvReduce.setEnabled(false);
                 } else {
@@ -86,49 +95,22 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
                     holder.tvNum.setText(count + "");
 
                     carts.get(position).setCount(count);
-                    cartPresenterImp.upData(carts.get(position));
+                    ShopCartPresenterImp.getShopImp().upData(carts.get(position));
                 }
             }
         });
         holder.tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count = carts.get(position).getCount();
+               int count = carts.get(position).getCount();
                 count++;
                 holder.tvNum.setText(count + "");
 
                 carts.get(position).setCount(count);
-                cartPresenterImp.upData(carts.get(position));
+                ShopCartPresenterImp.getShopImp().upData(carts.get(position));
             }
         });
 
-        holder.tvNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                String numString = s.toString();
-                int numInt = Integer.parseInt(numString);
-
-                //设ditText光标位置 为文本末端
-                holder.tvNum.setSelection(holder.tvNum.getText().toString().length());
-                count = numInt;
-
-                carts.get(position).setCount(count);
-                cartPresenterImp.upData(carts.get(position));
-
-
-            }
-        });
 
     }
 
@@ -137,12 +119,24 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
         return carts != null ? carts.size() : 0;
     }
 
+    @Override
+    public void queryAllGoods(List<GoodsForCart> carts) {
+
+    }
+
+
+
+    @Override
+    public void upDataUI(List<GoodsForCart> goods) {
+this.carts.clear();
+        notifyDataSetChanged();
+        carts.addAll(goods);
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.shoppingdianpu_bnt)
-        CheckBox shoppingdianpuBnt;
-        @BindView(R.id.shopping_name)
-        TextView shoppingName;
+
         @BindView(R.id.shoppingname_bnt)
         CheckBox shoppingnameBnt;
         @BindView(R.id.shopping_iv)

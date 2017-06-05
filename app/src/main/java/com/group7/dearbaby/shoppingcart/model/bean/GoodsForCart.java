@@ -9,7 +9,7 @@ import org.litepal.crud.DataSupport;
  * date:2017.05.24
  */
 public class GoodsForCart extends DataSupport {
-    private int gid;
+    private int id;
     private int isChecked;
     private String picUrl;
     private String title;
@@ -17,7 +17,7 @@ public class GoodsForCart extends DataSupport {
     private int count;
 
     public GoodsForCart(int gid, int isChecked, String picUrl, String title, double price, int count) {
-        this.gid = gid;
+        this.id = gid;
         this.isChecked = isChecked;
         this.picUrl = picUrl;
         this.title = title;
@@ -30,11 +30,11 @@ public class GoodsForCart extends DataSupport {
     }
 
     public int getGid() {
-        return gid;
+        return id;
     }
 
     public void setGid(int gid) {
-        this.gid = gid;
+        this.id = gid;
     }
 
     public int getIsChecked() {
@@ -81,7 +81,7 @@ public class GoodsForCart extends DataSupport {
     @Override
     public String toString() {
         return "GoodsForCart{" +
-                "gid=" + gid +
+                "gid=" + id +
                 ", isChecked=" + isChecked +
                 ", picUrl='" + picUrl + '\'' +
                 ", title='" + title + '\'' +

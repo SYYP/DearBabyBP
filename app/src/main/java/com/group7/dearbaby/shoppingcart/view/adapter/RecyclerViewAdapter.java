@@ -13,6 +13,7 @@ import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
 import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenter;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
+import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
  * 项目创建时间:2017/5/25 9:35
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ViewDao {
     private static final int TYPEONE = 1;
     private static final int TYPETWO = 2;
 
@@ -37,8 +38,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerViewAdapter(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
         this.context = context;
         this.sugGoods = sugGoods;
-        shopCartPresenter = new ShopCartPresenterImp(context);
-        carts = shopCartPresenter.queryAll();
+       ShopCartPresenterImp.getShopImp().attachView(this);
+        ShopCartPresenterImp.getShopImp().queryAll();
+
     }
 
 
@@ -92,6 +94,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    @Override
+    public void queryAllGoods(List<GoodsForCart> carts) {
+        this.carts = carts;
+    }
+
+
+
+    @Override
+    public void upDataUI(List<GoodsForCart> goods) {
+
     }
 
     public class Viewholder1 extends RecyclerView.ViewHolder {

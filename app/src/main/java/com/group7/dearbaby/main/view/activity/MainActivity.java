@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -23,7 +24,10 @@ import com.group7.dearbaby.category.view.fragment.CategoryFragment;
 import com.group7.dearbaby.home.view.fragment.HomeFragment;
 import com.group7.dearbaby.lepingou.view.fragment.LepingouFragment;
 import com.group7.dearbaby.me.view.fragment.MineFragment;
+import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.group7.dearbaby.shoppingcart.view.fragment.CartFragment;
+import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +38,7 @@ import butterknife.ButterKnife;
 /**
  * 主页面
  */
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements ViewDao{
 
 
     @BindView(R.id.tabHome)
@@ -58,20 +62,24 @@ public class MainActivity extends BaseFragmentActivity {
     private List<Fragment> contentlist;
     private Handler handler = new Handler();
     private boolean canExist;
+    private TextView shoppingNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ((MyApplication)getApplicationContext()).addListnerToList(this);
+        ShopCartPresenterImp.getShopImp().attachView(this);
         addShoppingNum();
+        ShopCartPresenterImp.getShopImp().queryAll();
+        ((MyApplication)getApplicationContext()).addListnerToList(this);
+
         initData();
         initView(R.id.realContent, tabBottom, contentlist);
     }
 
     private void addShoppingNum() {
-        TextView shoppingNum = new TextView(this);
+        shoppingNum = new TextView(this);
         RelativeLayout.LayoutParams shoppingParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         shoppingParams.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tab);
         shoppingParams.addRule(RelativeLayout.ALIGN_TOP, R.id.tab);
@@ -81,9 +89,10 @@ public class MainActivity extends BaseFragmentActivity {
         shoppingNum.setTextSize(10);
         shoppingNum.setLayoutParams(shoppingParams);
         shoppingNum.setBackgroundResource(R.drawable.shoppingcart_tab_num_bg);
-        shoppingNum.setText("3");
+
         shoppingNum.setTextColor(Color.WHITE);
         shoppingNum.setGravity(Gravity.CENTER);
+        shoppingNum.setVisibility(View.INVISIBLE);
         mainLayout.addView(shoppingNum);
 
     }
@@ -127,5 +136,46 @@ public class MainActivity extends BaseFragmentActivity {
         } else {
             tabHome.setChecked(true);
         }
+    }
+
+    @Override
+    public void queryAllGoods( List<GoodsForCart> carts) {
+      changeShopnum(carts);
+    }
+
+
+    @Override
+    public void upDataUI(List<GoodsForCart> goods) {
+        changeShopnum(goods);
+    }
+
+    private void changeShopnum(List<GoodsForCart> goods) {
+        int count=getAllGoosCount(goods);
+        if (shoppingNum!=null)
+        if (count==0){
+            shoppingNum.setVisibility(View.INVISIBLE);
+        }
+        else {
+            shoppingNum.setVisibility(View.VISIBLE);
+            shoppingNum.setText(count+"");
+        }
+    }
+
+    private int getAllGoosCount(List<GoodsForCart> carts){
+        int count =0;
+        if (carts==null ||carts.size()==0){
+            return count;
+        }
+
+        for (GoodsForCart cart:carts){
+            count+=cart.getCount();
+        }
+        return count;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ShopCartPresenterImp.getShopImp().detachView(this);
     }
 }

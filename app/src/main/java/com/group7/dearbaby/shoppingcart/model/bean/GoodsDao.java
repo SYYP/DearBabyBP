@@ -14,9 +14,9 @@ public interface GoodsDao {
     //查询
     List<GoodsForCart> queryAll();
 
-    void insert(List<GoodsForCart> goods);
+    void insert(GoodsForCart goods);
 
-    boolean delete(int id);
-
+    boolean delete(List<GoodsForCart> goods);
+    void upData(List<GoodsForCart> carts);
     boolean upData(GoodsForCart goods);
 }

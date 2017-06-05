@@ -16,12 +16,7 @@ public interface ViewDao {
 
 
     //查询
-    List<GoodsForCart> queryAllGoods();
+    void queryAllGoods( List<GoodsForCart> carts);
 
-    void insertGoods(List<GoodsForCart> goods);
-
-    boolean deleteGoods(int id);
-
-    boolean upDataGoods(GoodsForCart goods);
-
+    void upDataUI(List<GoodsForCart> goods);
 }
