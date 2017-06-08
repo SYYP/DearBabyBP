@@ -24,7 +24,7 @@ import com.group7.dearbaby.category.view.fragment.CategoryFragment;
 import com.group7.dearbaby.home.view.fragment.HomeFragment;
 import com.group7.dearbaby.lepingou.view.fragment.LepingouFragment;
 import com.group7.dearbaby.me.view.fragment.MineFragment;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoodsCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.group7.dearbaby.shoppingcart.view.fragment.CartFragment;
 import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
@@ -71,7 +71,7 @@ public class MainActivity extends BaseFragmentActivity implements ViewDao{
         ButterKnife.bind(this);
         ShopCartPresenterImp.getShopImp().attachView(this);
         addShoppingNum();
-        ShopCartPresenterImp.getShopImp().queryAll();
+        ShopCartPresenterImp.getShopImp().getCarts();
         ((MyApplication)getApplicationContext()).addListnerToList(this);
 
         initData();
@@ -138,18 +138,9 @@ public class MainActivity extends BaseFragmentActivity implements ViewDao{
         }
     }
 
-    @Override
-    public void queryAllGoods( List<GoodsForCart> carts) {
-      changeShopnum(carts);
-    }
 
 
-    @Override
-    public void upDataUI(List<GoodsForCart> goods) {
-        changeShopnum(goods);
-    }
-
-    private void changeShopnum(List<GoodsForCart> goods) {
+    private void changeShopnum(List<ALingGoodsCart> goods) {
         int count=getAllGoosCount(goods);
         if (shoppingNum!=null)
         if (count==0){
@@ -161,13 +152,14 @@ public class MainActivity extends BaseFragmentActivity implements ViewDao{
         }
     }
 
-    private int getAllGoosCount(List<GoodsForCart> carts){
+    private int getAllGoosCount(List<ALingGoodsCart> carts){
         int count =0;
         if (carts==null ||carts.size()==0){
             return count;
         }
 
-        for (GoodsForCart cart:carts){
+        for (ALingGoodsCart cart:carts){
+            if (!cart.isIsGiven())
             count+=cart.getCount();
         }
         return count;
@@ -177,5 +169,35 @@ public class MainActivity extends BaseFragmentActivity implements ViewDao{
     protected void onDestroy() {
         super.onDestroy();
         ShopCartPresenterImp.getShopImp().detachView(this);
+    }
+
+    @Override
+    public void getCarts(List<ALingGoodsCart> carts) {
+        changeShopnum(carts);
+    }
+
+    @Override
+    public void addItems(List<ALingGoodsCart> carts, String productId) {
+        changeShopnum(carts);
+    }
+
+    @Override
+    public void updateItems(List<ALingGoodsCart> carts) {
+        changeShopnum(carts);
+    }
+
+    @Override
+    public void selctAll(List<ALingGoodsCart> carts) {
+        changeShopnum(carts);
+    }
+
+    @Override
+    public void unSelectAll(List<ALingGoodsCart> carts) {
+        changeShopnum(carts);
+    }
+
+    @Override
+    public void createOrder(List<ALingGoodsCart> carts) {
+        changeShopnum(carts);
     }
 }

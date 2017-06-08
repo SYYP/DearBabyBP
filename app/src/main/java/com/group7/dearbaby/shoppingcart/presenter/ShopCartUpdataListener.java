@@ -1,6 +1,6 @@
 package com.group7.dearbaby.shoppingcart.presenter;
 
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoodsCart;
 
 import java.util.List;
 
@@ -11,5 +11,10 @@ import java.util.List;
  */
 
 public interface ShopCartUpdataListener {
-    void dataChange(List<GoodsForCart> goods);
+    void hadGetCarts(List<ALingGoodsCart> carts);
+    void hadAddItems(List<ALingGoodsCart> carts, String productId);
+    void hadUpdateItems(List<ALingGoodsCart> carts);
+    void hadSelectAll(List<ALingGoodsCart> carts);
+    void hadUnSelectAll(List<ALingGoodsCart> carts);
+    void hadCreateOrder(List<ALingGoodsCart> carts);
 }

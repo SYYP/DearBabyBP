@@ -157,11 +157,11 @@ public class OrderInfoUtil2_0 {
 		String tailValue = map.get(tailKey);
 		authInfo.append(buildKeyValue(tailKey, tailValue, false));
 
-		String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
+		//String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
 		String encodedSign = "";
 
 		try {
-			encodedSign = URLEncoder.encode(oriSign, "UTF-8");
+			encodedSign = URLEncoder.encode(encodedSign, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

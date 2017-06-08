@@ -2,7 +2,6 @@ package com.group7.dearbaby.shoppingcart.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.group7.dearbaby.R;
-import com.group7.dearbaby.home.model.bean.Urls;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoods;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
-import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -28,17 +25,17 @@ import butterknife.ButterKnife;
  * 项目创建时间:2017/5/25 13:52
  */
 
-public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.MyViewholder> implements ViewDao{
+public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.MyViewholder> {
 
 
-    private List<GoodsBean.SugGoodsBean> sugGoods;
+    private List<ALingGoods> sugGoods;
     private Context context;
 
 
-    public RecyclerView_item2(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
+    public RecyclerView_item2(Context context, List<ALingGoods> sugGoods) {
         this.context = context;
         this.sugGoods = sugGoods;
-      ShopCartPresenterImp.getShopImp().attachView(this);
+
     }
 
 
@@ -54,14 +51,16 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
     @Override
     public void onBindViewHolder(MyViewholder holder, final int position) {
         String picPath = null;
-        String code = sugGoods.get(0).getSkus().get(position).getSugGoodsCode();
-        if (!TextUtils.isEmpty(code)) {
-            picPath = Urls.GOODSCAR_PIC_TITLE + code + Urls.GOODSCAR_PIC_FOOT;
+       // String code = sugGoods.get(0).getSkus().get(position).getSugGoodsCode();
+       // if (!TextUtils.isEmpty(code)) {
+            picPath ="http://service.alinq.cn:2800/AdminServices/Shop"
+                    +sugGoods.get(position).getImagePath()
+                    +"?application-key=58424776034ff82470d06d3d&storeId=58401d1906c02a2b8877bd13";
             Glide.with(context).load(picPath).into(holder.imageView2);
-        }
-        holder.jiage.setText(sugGoods.get(0).getSkus().get(position).getPrice());
-        holder.textView.setText(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
-        holder.textView2.setText(sugGoods.get(0).getSkus().get(position).getSalesVolume() + "人已购买");
+       // }
+        holder.jiage.setText(sugGoods.get(position).getPrice()+"");
+        holder.textView.setText(sugGoods.get(position).getName());
+        holder.textView2.setText(sugGoods.get(position).getUnit());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +74,14 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
         holder.addToCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GoodsForCart cart = new GoodsForCart();
-
-                cart.setPrice(Double.parseDouble(sugGoods.get(0).getSkus().get(position).getPrice()));
-                cart.setCount(1);
-                cart.setIsChecked(1);
-                cart.setPicUrl(finalPicPath);
-                cart.setTitle(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
-                ShopCartPresenterImp.getShopImp().insert(cart);
+//                GoodsForCart cart = new GoodsForCart();
+//
+//                cart.setPrice(Double.parseDouble(sugGoods.get(0).getSkus().get(position).getPrice()));
+//                cart.setCount(1);
+//                cart.setIsChecked(1);
+//                cart.setPicUrl(finalPicPath);
+//                cart.setTitle(sugGoods.get(0).getSkus().get(position).getSugGoodsName());
+                ShopCartPresenterImp.getShopImp().addItems(sugGoods.get(position).getProductId());
 
 
 
@@ -93,20 +92,12 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
 
     @Override
     public int getItemCount() {
-        return sugGoods != null ? sugGoods.get(0).getSkus().size() : 0;
-    }
-
-    @Override
-    public void queryAllGoods(List<GoodsForCart> carts) {
-
+        return sugGoods != null ?sugGoods.size() : 0;
     }
 
 
 
-    @Override
-    public void upDataUI(List<GoodsForCart> goods) {
 
-    }
 
     public class MyViewholder extends RecyclerView.ViewHolder {
 
@@ -124,7 +115,7 @@ public class RecyclerView_item2 extends RecyclerView.Adapter<RecyclerView_item2.
         public MyViewholder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
+            AutoUtils.autoSize(itemView);
         }
     }
 }

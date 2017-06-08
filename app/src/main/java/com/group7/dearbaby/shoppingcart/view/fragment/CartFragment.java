@@ -1,9 +1,8 @@
 package com.group7.dearbaby.shoppingcart.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,16 +13,20 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.group7.dearbaby.R;
 import com.group7.dearbaby.base.BaseFragment;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
-import com.group7.dearbaby.shoppingcart.model.utils.GetGoods;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoods;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoodsCart;
+import com.group7.dearbaby.shoppingcart.model.utils.ALingUrls;
+import com.group7.dearbaby.shoppingcart.model.utils.OkHttp3Utils;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.group7.dearbaby.shoppingcart.view.activity.SubmitOrderActivity;
 import com.group7.dearbaby.shoppingcart.view.adapter.RecyclerViewAdapter;
 import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
+import com.group7.dearbaby.utils.GsonUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,20 +67,9 @@ public class CartFragment extends BaseFragment implements View.OnClickListener ,
     RelativeLayout jiesuan;
     private RecyclerView recyclerView;
     private TextView textView;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                List<GoodsBean.SugGoodsBean> sugGoods =
-                        (List<GoodsBean.SugGoodsBean>) msg.obj;
-                adapter = new RecyclerViewAdapter(getActivity(), sugGoods);
-                recyclerView.setAdapter(adapter);
-            }
-        }
-    };
+
     private RecyclerViewAdapter adapter;
-private List<GoodsForCart> carts;
+private List<ALingGoodsCart> carts;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +80,26 @@ private List<GoodsForCart> carts;
     protected View initSelfView(LayoutInflater inflater, ViewGroup container) {
 
         View view = inflater.inflate(R.layout.activity_shoppingcart, container, false);
-        new GetGoods(handler).start();
+
         ButterKnife.bind(this, view);
+        OkHttp3Utils.getmInstance(getContext()).doGet(ALingUrls.ALING_PAGE_INFO, null, null, new OkHttp3Utils.NetCallback() {
+            @Override
+            public void onFailure(int code, String msg) {
+
+            }
+
+            @Override
+            public void onSuccess(int code, String content) {
+                LogUtils.e("CARTFRAGMENT",content);
+                adapter = new RecyclerViewAdapter(getActivity(),(List<ALingGoods>) GsonUtils.jsonToBeanList(content, ALingGoods.class));
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void loadImage(Bitmap bitmap) {
+
+            }
+        });
         return view;
     }
 
@@ -106,7 +116,7 @@ private List<GoodsForCart> carts;
         textView = (TextView) getView().findViewById(R.id.shopping_jiesuantext);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-     ShopCartPresenterImp.getShopImp().queryAll();
+     ShopCartPresenterImp.getShopImp().getCarts();
 
         textView.setOnClickListener(this);
         shoppingTitleEdit.setOnClickListener(this);
@@ -134,7 +144,30 @@ private List<GoodsForCart> carts;
     public void onClick(View v) {
         switch (v.getId()) {
             case shopping_jiesuantext:
-                startActivity(new Intent(getActivity(), SubmitOrderActivity.class));
+                try {
+                    OkHttp3Utils.getmInstance(null).doPost(ALingUrls.CREATE_ORDER, null, null, "", 1, 0, false, new OkHttp3Utils.NetCallback() {
+                        @Override
+                        public void onFailure(int code, String msg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(int code, String content) {
+                           Intent intent= new Intent(getActivity(), SubmitOrderActivity.class);
+                            intent.putExtra("order",content);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void loadImage(Bitmap bitmap) {
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
                 break;
             case shopping_title_edit:
                 shoppingJiesuanbnt.setText("删除");
@@ -142,45 +175,30 @@ private List<GoodsForCart> carts;
                 break;
             case shopping_quanxuan:
                 if (shoppingQuanxuan.isChecked()){
-                    for (GoodsForCart goods:carts) {
-                        goods.setIsChecked(1);
-                    }
+                    ShopCartPresenterImp.getShopImp().selctAll();
 
 
                 }else {
-                    for (GoodsForCart goods:carts) {
-                        goods.setIsChecked(0);
-                    }
+                    ShopCartPresenterImp.getShopImp().unSelectAll();
 
                 }
-                ShopCartPresenterImp.getShopImp().upData(carts);
+
                 break;
         }
 
     }
 
 
-    @Override
-    public void queryAllGoods(List<GoodsForCart> carts) {
-this.carts=carts;
-      updateCbAndTV(carts);
-    }
 
-
-    @Override
-    public void upDataUI(List<GoodsForCart> goods) {
-this.carts=goods;
-        updateCbAndTV(goods);
-    }
 
     /**
      * 返回选中商品的总价
      * @return
      */
-    private String allPrice(List<GoodsForCart> carts){
+    private String allPrice(List<ALingGoodsCart> carts){
         float sum=0f;
-        for (GoodsForCart goods:carts) {
-            if (!(goods.getIsChecked()==0)){
+        for (ALingGoodsCart goods:carts) {
+            if (goods.isSelected()){
              sum+=goods.getPrice()*goods.getCount();
             }
         }
@@ -191,10 +209,10 @@ this.carts=goods;
      * 返回选中商品的总价
      * @return
      */
-    private String allOkCount(List<GoodsForCart> carts){
+    private String allOkCount(List<ALingGoodsCart> carts){
         int  sum=0;
-        for (GoodsForCart goods:carts) {
-            if (!(goods.getIsChecked()==0)){
+        for (ALingGoodsCart goods:carts) {
+            if (goods.isSelected()&&!goods.isIsGiven()){
                 sum+=goods.getCount();
             }
         }
@@ -205,16 +223,16 @@ this.carts=goods;
      */
     private void  delete(){
         if (shoppingQuanxuan.isChecked()){
-           ShopCartPresenterImp.getShopImp().delete(carts);
+//           ShopCartPresenterImp.getShopImp().delete(carts);
 
         }else {
-            List<GoodsForCart> good=new ArrayList<>();
-            for (GoodsForCart goods:carts) {
-                if (!(goods.getIsChecked()==0)){
+            List<ALingGoodsCart> good=new ArrayList<>();
+            for (ALingGoodsCart goods:carts) {
+                if (goods.isSelected()){
                     good.add(goods);
                 }
             }
-            ShopCartPresenterImp.getShopImp().delete(carts);
+         //   ShopCartPresenterImp.getShopImp().delete(carts);
          good=null;
         }
 
@@ -225,10 +243,10 @@ this.carts=goods;
      * 每次选择 接口调用时  判断自条目是否全选 更新全选按钮状态
      * @return
      */
-    public boolean isAllChose(List<GoodsForCart> carts) {
+    public boolean isAllChose(List<ALingGoodsCart> carts) {
         boolean allChose=false;
-        for (GoodsForCart goods:carts) {
-            if (goods.getIsChecked()==0){
+        for (ALingGoodsCart goods:carts) {
+            if (!goods.isSelected()){
                 allChose=true;
             }
         }
@@ -241,7 +259,7 @@ this.carts=goods;
     }
 
 
-    private void updateCbAndTV(List<GoodsForCart> carts){
+    private void updateCbAndTV(List<ALingGoodsCart> carts){
         if (carts != null && carts.size() > 0) {
             jiesuan.setVisibility(View.VISIBLE);
             shoppingSumprice2.setText(allPrice(carts));
@@ -252,5 +270,41 @@ this.carts=goods;
         }
 
 
+    }
+
+    @Override
+    public void getCarts(List<ALingGoodsCart> carts) {
+        this.carts=carts;
+        updateCbAndTV(carts);
+    }
+
+    @Override
+    public void addItems(List<ALingGoodsCart> carts, String productId) {
+        this.carts=carts;
+        updateCbAndTV(carts);
+    }
+
+    @Override
+    public void updateItems(List<ALingGoodsCart> carts) {
+        this.carts=carts;
+        updateCbAndTV(carts);
+    }
+
+    @Override
+    public void selctAll(List<ALingGoodsCart> carts) {
+        this.carts=carts;
+        updateCbAndTV(carts);
+    }
+
+    @Override
+    public void unSelectAll(List<ALingGoodsCart> carts) {
+        this.carts=carts;
+        updateCbAndTV(carts);
+    }
+
+    @Override
+    public void createOrder(List<ALingGoodsCart> carts) {
+        this.carts=carts;
+        updateCbAndTV(carts);
     }
 }

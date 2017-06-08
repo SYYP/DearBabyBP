@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.group7.dearbaby.R;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsBean;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoods;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoodsCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenter;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
@@ -31,15 +31,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPETWO = 2;
 
     private Context context;
-    private List<GoodsBean.SugGoodsBean> sugGoods;
+    private List<ALingGoods> sugGoods;
     private ShopCartPresenter shopCartPresenter;
-    private List<GoodsForCart> carts;
+    private List<ALingGoodsCart> carts;
 
-    public RecyclerViewAdapter(Context context, List<GoodsBean.SugGoodsBean> sugGoods) {
+    public RecyclerViewAdapter(Context context, List<ALingGoods> sugGoods) {
         this.context = context;
         this.sugGoods = sugGoods;
        ShopCartPresenterImp.getShopImp().attachView(this);
-        ShopCartPresenterImp.getShopImp().queryAll();
+        ShopCartPresenterImp.getShopImp().getCarts();
 
     }
 
@@ -96,15 +96,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return 2;
     }
 
+
+
     @Override
-    public void queryAllGoods(List<GoodsForCart> carts) {
-        this.carts = carts;
+    public void getCarts(List<ALingGoodsCart> carts) {
+        this.carts=carts;
     }
 
+    @Override
+    public void addItems(List<ALingGoodsCart> carts, String productId) {
 
+    }
 
     @Override
-    public void upDataUI(List<GoodsForCart> goods) {
+    public void updateItems(List<ALingGoodsCart> carts) {
+
+    }
+
+    @Override
+    public void selctAll(List<ALingGoodsCart> carts) {
+
+    }
+
+    @Override
+    public void unSelectAll(List<ALingGoodsCart> carts) {
+
+    }
+
+    @Override
+    public void createOrder(List<ALingGoodsCart> carts) {
 
     }
 

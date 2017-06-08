@@ -54,11 +54,15 @@ public class HomeShowDataFragment extends BaseFragment {
 
             String data = (String) msg.obj;
             Gson gson = new Gson();
-            dataBeen = gson.fromJson(data, OtherDataBean.class).getData();
+            OtherDataBean otherDataBean = gson.fromJson(data, OtherDataBean.class);
+            if (otherDataBean != null) {
+                dataBeen = otherDataBean.getData();
 
-            adapter = new HomeRecAdapter(getContext(), dataBeen,isFirst);
-            if (homeRecViShowData!=null)
-            homeRecViShowData.setAdapter(adapter);
+                adapter = new HomeRecAdapter(getContext(), dataBeen,isFirst);
+                if (homeRecViShowData!=null)
+                    homeRecViShowData.setAdapter(adapter);
+            }
+
         }
     };
 

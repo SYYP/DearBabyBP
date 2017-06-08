@@ -3,10 +3,7 @@ package com.group7.dearbaby.shoppingcart.presenter;/**
  */
 
 
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
 import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
-
-import java.util.List;
 
 /**
  * auth:holmes k
@@ -15,14 +12,12 @@ import java.util.List;
 public interface ShopCartPresenter {
 
 void attachView(ViewDao view);
-    //查询
-    List<GoodsForCart> queryAll();
-
-    void insert(GoodsForCart goods);
-    void upData(List<GoodsForCart> carts);
-    boolean delete(List<GoodsForCart> goods);
-
-    boolean upData(GoodsForCart goods);
-void detachView(ViewDao view);
+    void getCarts();
+    void addItems(String productId);
+    void updateItems(int count,String productId,int type ,boolean isSelected);
+    void selctAll();
+    void unSelectAll();
+    void createOrder();
+    void detachView(ViewDao view);
 
 }

@@ -2,6 +2,7 @@ package com.group7.dearbaby.application;
 
 import com.blankj.utilcode.util.Utils;
 import com.group7.dearbaby.base.LoginListener;
+import com.group7.dearbaby.shoppingcart.model.utils.OkHttp3Utils;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.igexin.sdk.PushManager;
 import com.umeng.socialize.PlatformConfig;
@@ -46,7 +47,7 @@ private List<LoginListener> loginListeners=new ArrayList<>();
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(),com.group7.dearbaby.utils.DemoIntentService.class);
 //初始化购物车P层
         ShopCartPresenterImp.init(this);
-
+        OkHttp3Utils.getmInstance(this);
     }
     public  void addListnerToList(LoginListener listener){
         loginListeners.add(listener);

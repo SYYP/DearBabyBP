@@ -2,7 +2,6 @@ package com.group7.dearbaby.shoppingcart.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.group7.dearbaby.R;
-import com.group7.dearbaby.shoppingcart.model.bean.GoodsForCart;
+import com.group7.dearbaby.shoppingcart.model.bean.ALingGoodsCart;
 import com.group7.dearbaby.shoppingcart.presenter.ShopCartPresenterImp;
 import com.group7.dearbaby.shoppingcart.view.views.ViewDao;
 
@@ -31,13 +30,13 @@ import butterknife.ButterKnife;
 public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.MyViewHolder> implements ViewDao {
 
 
-    private List<GoodsForCart> carts;
+    private List<ALingGoodsCart> carts;
 
 
 
-    public RecyclerView_item1(Context contexts, List<GoodsForCart> carts) {
+    public RecyclerView_item1(Context contexts, List<ALingGoodsCart> carts) {
         this.contexts = contexts;
-        this.carts = carts;
+
     ShopCartPresenterImp.getShopImp().attachView(this);
     }
 
@@ -54,26 +53,39 @@ public class RecyclerView_item1 extends RecyclerView.Adapter<RecyclerView_item1.
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 
+if (carts.get(position).isIsGiven()){
+    holder.shoppingnameBnt.setVisibility(View.INVISIBLE);
+    holder.tvReduce.setVisibility(View.INVISIBLE);
+    holder.tvAdd.setVisibility(View.INVISIBLE);
+    holder.tvNum.setVisibility(View.INVISIBLE);
+
+}else {
+    holder.shoppingnameBnt.setVisibility(View.VISIBLE);
+    holder.tvReduce.setVisibility(View.VISIBLE);
+    holder.tvAdd.setVisibility(View.VISIBLE);
+    holder.tvNum.setVisibility(View.VISIBLE);
+}
 
 
-
-                holder.shoppingnameBnt.setChecked(carts.get(position).getIsChecked()!=0);
+                holder.shoppingnameBnt.setChecked(carts.get(position).isSelected());
 
 holder.shoppingnameBnt.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         if (holder.shoppingnameBnt.isChecked()){
-            carts.get(position).setIsChecked(1);
+            carts.get(position).setSelected(true);
 
         }else {
-            carts.get(position).setIsChecked(0);
+            carts.get(position).setSelected(false);
         }
-        ShopCartPresenterImp.getShopImp().upData(carts.get(position));
+        ShopCartPresenterImp.getShopImp().updateItems(carts.get(position).getCount(),carts.get(position).getProductId(),2,carts.get(position).isSelected());
     }
 });
-            Glide.with(contexts).load(carts.get(position).getPicUrl()).into(holder.shoppingIv);
-            Log.d("abc", carts.get(position).getPicUrl());
-            holder.shoppingInpo.setText(carts.get(position).getTitle());
+            Glide.with(contexts).load("http://service.alinq.cn:2800/AdminServices/Shop"
+                    +carts.get(position).getImageUrl()
+            +"?application-key=58424776034ff82470d06d3d&storeId=58401d1906c02a2b8877bd13").into(holder.shoppingIv);
+            //Log.d("abc", carts.get(position).getPicUrl());
+            holder.shoppingInpo.setText(carts.get(position).getName());
             holder.shoppingPrice.setText(carts.get(position).getPrice() + "");
            int count = carts.get(position).getCount();
             holder.tvNum.setText(count + "");
@@ -95,7 +107,8 @@ holder.shoppingnameBnt.setOnClickListener(new View.OnClickListener() {
                     holder.tvNum.setText(count + "");
 
                     carts.get(position).setCount(count);
-                    ShopCartPresenterImp.getShopImp().upData(carts.get(position));
+                    ShopCartPresenterImp.getShopImp().updateItems(carts.get(position).getCount(),carts.get(position).getProductId(),0,carts.get(position).isSelected());
+
                 }
             }
         });
@@ -107,7 +120,8 @@ holder.shoppingnameBnt.setOnClickListener(new View.OnClickListener() {
                 holder.tvNum.setText(count + "");
 
                 carts.get(position).setCount(count);
-                ShopCartPresenterImp.getShopImp().upData(carts.get(position));
+                ShopCartPresenterImp.getShopImp().updateItems(carts.get(position).getCount(),carts.get(position).getProductId(),0,carts.get(position).isSelected());
+
             }
         });
 
@@ -119,19 +133,57 @@ holder.shoppingnameBnt.setOnClickListener(new View.OnClickListener() {
         return carts != null ? carts.size() : 0;
     }
 
+
+
+
+
+
+
     @Override
-    public void queryAllGoods(List<GoodsForCart> carts) {
+    public void getCarts(List<ALingGoodsCart> carts) {
+this.carts=carts;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void addItems(List<ALingGoodsCart> carts, String productId) {
+
+        for (ALingGoodsCart cart:carts
+                ) {
+           if (cart.getProductId().equals(productId)){
+              this.carts.add(cart);
+               break;
+           }
+        }
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateItems(List<ALingGoodsCart> carts) {
 
     }
 
-
+    @Override
+    public void selctAll(List<ALingGoodsCart> carts) {
+        for (ALingGoodsCart cart:this.carts
+             ) {
+           cart.setSelected(true);
+        }
+        notifyDataSetChanged();
+    }
 
     @Override
-    public void upDataUI(List<GoodsForCart> goods) {
-this.carts.clear();
+    public void unSelectAll(List<ALingGoodsCart> carts) {
+        for (ALingGoodsCart cart:this.carts
+                ) {
+            cart.setSelected(false);
+        }
         notifyDataSetChanged();
-        carts.addAll(goods);
-        notifyDataSetChanged();
+    }
+
+    @Override
+    public void createOrder(List<ALingGoodsCart> carts) {
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -44,7 +44,7 @@ private ShopCartUpdataListener shopCartLister;
     public void insert(GoodsForCart goods) {
         insertGoods.add(goods);
         DataSupport.saveAll(insertGoods);
-        shopCartLister.dataChange(queryAll());
+       // shopCartLister.dataChange(queryAll());
     }
 
     //删除方法
@@ -57,7 +57,7 @@ private ShopCartUpdataListener shopCartLister;
         }
 
         if (delete > 0) {
-            shopCartLister.dataChange(queryAll());
+           // shopCartLister.dataChange(queryAll());
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ private ShopCartUpdataListener shopCartLister;
         values.put("isChecked",goods.getIsChecked());
         int update = DataSupport.update(GoodsForCart.class, values,goods.getGid());
         if (update > 0) {
-            shopCartLister.dataChange(queryAll());
+         //   shopCartLister.dataChange(queryAll());
             return true;
         }
 
@@ -88,7 +88,7 @@ private ShopCartUpdataListener shopCartLister;
     update += DataSupport.update(GoodsForCart.class, values,cart.getGid());
         }
         if (update > 0) {
-            shopCartLister.dataChange(queryAll());
+       //     shopCartLister.dataChange(queryAll());
 
         }
 
